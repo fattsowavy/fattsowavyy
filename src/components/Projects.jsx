@@ -1,4 +1,5 @@
 import project1 from '../assets/projects/urlShort.png';
+import project2 from '../assets/projects/labChatbot.png';
 // import project2 from '../assets/project2.jpg';
 // import project3 from '../assets/project3.jpg';
 
@@ -18,7 +19,7 @@ const Projects = () => {
             technologies: ['Python', 'Flask', 'Qrcode', 'HTML', 'CSS', 'JavaScript'],
             // demoLink: 'https://github.com/fattsowavy',
             githubLink: 'https://github.com/fattsowavy/Shorterner-Url-and-QrCode-Generator',
-            image: 'https://via.placeholder.com/400x250/1890ff/ffffff?text=Image+Classification'
+            image: project1
         },
         {
             title: 'Lab Chatbot',
@@ -26,7 +27,7 @@ const Projects = () => {
             technologies: ['Python', 'FuzzyWuzzy', 'Natural Language Processing', 'Flask'],
             // demoLink: 'https://github.com/fattsowavy',
             githubLink: 'https://github.com/fattsowavy/lab-chatbot',
-            image: project1
+            image: project2
         },
     ];
 
