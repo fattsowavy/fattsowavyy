@@ -1,3 +1,5 @@
+import profilePhoto from '../assets/Fatwa.jpg';
+
 const Hero = () => {
     return (
         <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-electric-blue-50 pt-16">
@@ -8,7 +10,7 @@ const Hero = () => {
                         <div className="relative inline-block">
                             <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-electric-blue-500 shadow-xl mx-auto">
                                 <img
-                                    src="https://via.placeholder.com/200/0050ff/ffffff?text=Photo"
+                                    src={profilePhoto}
                                     alt="Profile"
                                     className="w-full h-full object-cover"
                                 />
@@ -28,7 +30,7 @@ const Hero = () => {
 
                     {/* Description */}
                     <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto animate-slide-up-delay font-inter">
-                        Data Scientist | AI/ML Engineer | Data Analytics Expert
+                        Data Scientist | AI/ML Engineer
                     </p>
 
                     <p className="text-base sm:text-lg text-gray-500 mb-10 max-w-3xl mx-auto animate-slide-up-delay-2">
@@ -37,7 +39,7 @@ const Hero = () => {
                     </p>
 
                     {/* CTA Button */}
-                    <div className="animate-slide-up-delay-3">
+                    {/* <div className="animate-slide-up-delay-3">
                         <a
                             href="/cv.pdf"
                             download
@@ -48,7 +50,7 @@ const Hero = () => {
                             </svg>
                             Download CV
                         </a>
-                    </div>
+                    </div> */}
 
                     {/* Scroll Indicator */}
                     <div className="mt-16 animate-bounce">

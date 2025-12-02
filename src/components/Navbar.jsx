@@ -30,7 +30,7 @@ const Navbar = () => {
                             onClick={(e) => scrollToSection(e, '#home')}
                             className="text-2xl font-bold text-gradient font-poppins"
                         >
-                            Portfolio
+                            Fattsowavy
                         </a>
                     </div>
 

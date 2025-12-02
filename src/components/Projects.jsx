@@ -1,52 +1,32 @@
+import project1 from '../assets/projects/urlShort.png';
+// import project2 from '../assets/project2.jpg';
+// import project3 from '../assets/project3.jpg';
+
 const Projects = () => {
     const projects = [
+        // {
+        //     title: 'Sentiment Analysis System',
+        //     description: 'Advanced NLP model for analyzing customer sentiment from social media and reviews using BERT and transformers.',
+        //     technologies: ['Python', 'TensorFlow', 'BERT', 'NLP'],
+        //     // demoLink: 'https://github.com/fattsowavy',
+        //     githubLink: 'https://github.com/fattsowavy',
+        //     image: 'https://via.placeholder.com/400x250/0050ff/ffffff?text=Sentiment+Analysis'
+        // },
         {
-            title: 'Sentiment Analysis System',
-            description: 'Advanced NLP model for analyzing customer sentiment from social media and reviews using BERT and transformers.',
-            technologies: ['Python', 'TensorFlow', 'BERT', 'NLP'],
-            demoLink: 'https://github.com/fattsowavy',
-            githubLink: 'https://github.com/fattsowavy',
-            image: 'https://via.placeholder.com/400x250/0050ff/ffffff?text=Sentiment+Analysis'
-        },
-        {
-            title: 'Image Classification Model',
-            description: 'Deep learning CNN model for multi-class image classification with 95% accuracy using transfer learning.',
-            technologies: ['PyTorch', 'CNN', 'ResNet', 'Computer Vision'],
-            demoLink: 'https://github.com/fattsowavy',
-            githubLink: 'https://github.com/fattsowavy',
+            title: 'Url Shortener and QrCode Generator',
+            description: 'Url shortener and QrCode generator using Python Flask and Qrcode.',
+            technologies: ['Python', 'Flask', 'Qrcode', 'HTML', 'CSS', 'JavaScript'],
+            // demoLink: 'https://github.com/fattsowavy',
+            githubLink: 'https://github.com/fattsowavy/Shorterner-Url-and-QrCode-Generator',
             image: 'https://via.placeholder.com/400x250/1890ff/ffffff?text=Image+Classification'
         },
         {
-            title: 'Recommendation System',
-            description: 'Collaborative filtering recommendation engine using matrix factorization and deep learning techniques.',
-            technologies: ['Python', 'Scikit-learn', 'Pandas', 'Surprise'],
-            demoLink: 'https://github.com/fattsowavy',
-            githubLink: 'https://github.com/fattsowavy',
-            image: 'https://via.placeholder.com/400x250/40a9ff/ffffff?text=Recommendation'
-        },
-        {
-            title: 'Predictive Analytics Dashboard',
-            description: 'Time series forecasting dashboard for sales prediction using LSTM and Prophet models with interactive visualizations.',
-            technologies: ['Python', 'LSTM', 'Prophet', 'Plotly'],
-            demoLink: 'https://github.com/fattsowavy',
-            githubLink: 'https://github.com/fattsowavy',
-            image: 'https://via.placeholder.com/400x250/69c0ff/ffffff?text=Predictive+Analytics'
-        },
-        {
-            title: 'NLP Chatbot',
-            description: 'Intelligent conversational AI chatbot using transformer models and intent classification for customer support.',
-            technologies: ['Python', 'Transformers', 'Rasa', 'NLP'],
-            demoLink: 'https://github.com/fattsowavy',
-            githubLink: 'https://github.com/fattsowavy',
-            image: 'https://via.placeholder.com/400x250/91d5ff/ffffff?text=AI+Chatbot'
-        },
-        {
-            title: 'Fraud Detection System',
-            description: 'Machine learning model for detecting fraudulent transactions using ensemble methods and anomaly detection.',
-            technologies: ['Python', 'XGBoost', 'Scikit-learn', 'Pandas'],
-            demoLink: 'https://github.com/fattsowavy',
-            githubLink: 'https://github.com/fattsowavy',
-            image: 'https://via.placeholder.com/400x250/bae7ff/333333?text=Fraud+Detection'
+            title: 'Lab Chatbot',
+            description: 'Interactive chatbot for lab management using FuzzyWuzzy.',
+            technologies: ['Python', 'FuzzyWuzzy', 'Natural Language Processing', 'Flask'],
+            // demoLink: 'https://github.com/fattsowavy',
+            githubLink: 'https://github.com/fattsowavy/lab-chatbot',
+            image: project1
         },
     ];
 
@@ -56,7 +36,7 @@ const Projects = () => {
                 {/* Section Title */}
                 <div className="text-center mb-16">
                     <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 font-poppins">
-                        My <span className="text-gradient">Projects</span>
+                        My <span className="text-electric-blue-600">Projects</span>
                     </h2>
                     <div className="w-20 h-1 bg-electric-blue-600 mx-auto rounded-full"></div>
                     <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -104,14 +84,14 @@ const Projects = () => {
 
                                 {/* Links */}
                                 <div className="flex gap-4">
-                                    <a
+                                    {/* <a
                                         href={project.demoLink}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex-1 text-center px-4 py-2 bg-electric-blue-600 text-white rounded-lg hover:bg-electric-blue-700 transition-colors duration-300 text-sm font-medium"
                                     >
                                         Live Demo
-                                    </a>
+                                    </a> */}
                                     <a
                                         href={project.githubLink}
                                         target="_blank"
