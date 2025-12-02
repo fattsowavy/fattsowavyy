@@ -23,17 +23,17 @@ const Hero = () => {
 
                     {/* Name */}
                     <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up font-poppins">
-                        <span className="text-gradient">Your Name</span>
+                        <span className="text-gradient">Muh Fatwah Fajriansyah M</span>
                     </h1>
 
                     {/* Description */}
                     <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto animate-slide-up-delay font-inter">
-                        Full Stack Developer | UI/UX Enthusiast | Problem Solver
+                        Data Scientist | AI/ML Engineer | Data Analytics Expert
                     </p>
 
                     <p className="text-base sm:text-lg text-gray-500 mb-10 max-w-3xl mx-auto animate-slide-up-delay-2">
-                        Passionate about creating beautiful, functional, and user-friendly digital experiences.
-                        Specialized in modern web technologies and always eager to learn new things.
+                        Transforming data into actionable insights and building intelligent solutions.
+                        Specialized in machine learning, deep learning, and advanced data analytics to solve complex problems.
                     </p>
 
                     {/* CTA Button */}

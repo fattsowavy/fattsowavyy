@@ -1,52 +1,52 @@
 const Projects = () => {
     const projects = [
         {
-            title: 'E-Commerce Platform',
-            description: 'A full-featured e-commerce platform with shopping cart, payment integration, and admin dashboard.',
-            technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-            demoLink: 'https://demo.example.com',
-            githubLink: 'https://github.com/username/project',
-            image: 'https://via.placeholder.com/400x250/0050ff/ffffff?text=E-Commerce'
+            title: 'Sentiment Analysis System',
+            description: 'Advanced NLP model for analyzing customer sentiment from social media and reviews using BERT and transformers.',
+            technologies: ['Python', 'TensorFlow', 'BERT', 'NLP'],
+            demoLink: 'https://github.com/fattsowavy',
+            githubLink: 'https://github.com/fattsowavy',
+            image: 'https://via.placeholder.com/400x250/0050ff/ffffff?text=Sentiment+Analysis'
         },
         {
-            title: 'Task Management App',
-            description: 'A collaborative task management application with real-time updates and team collaboration features.',
-            technologies: ['React', 'Firebase', 'Tailwind CSS'],
-            demoLink: 'https://demo.example.com',
-            githubLink: 'https://github.com/username/project',
-            image: 'https://via.placeholder.com/400x250/1890ff/ffffff?text=Task+Manager'
+            title: 'Image Classification Model',
+            description: 'Deep learning CNN model for multi-class image classification with 95% accuracy using transfer learning.',
+            technologies: ['PyTorch', 'CNN', 'ResNet', 'Computer Vision'],
+            demoLink: 'https://github.com/fattsowavy',
+            githubLink: 'https://github.com/fattsowavy',
+            image: 'https://via.placeholder.com/400x250/1890ff/ffffff?text=Image+Classification'
         },
         {
-            title: 'Weather Dashboard',
-            description: 'A beautiful weather dashboard that displays current weather and forecasts using external APIs.',
-            technologies: ['Vue.js', 'OpenWeather API', 'Chart.js'],
-            demoLink: 'https://demo.example.com',
-            githubLink: 'https://github.com/username/project',
-            image: 'https://via.placeholder.com/400x250/40a9ff/ffffff?text=Weather+App'
+            title: 'Recommendation System',
+            description: 'Collaborative filtering recommendation engine using matrix factorization and deep learning techniques.',
+            technologies: ['Python', 'Scikit-learn', 'Pandas', 'Surprise'],
+            demoLink: 'https://github.com/fattsowavy',
+            githubLink: 'https://github.com/fattsowavy',
+            image: 'https://via.placeholder.com/400x250/40a9ff/ffffff?text=Recommendation'
         },
         {
-            title: 'Portfolio Website',
-            description: 'A modern and responsive portfolio website built with Next.js and styled with Tailwind CSS.',
-            technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
-            demoLink: 'https://demo.example.com',
-            githubLink: 'https://github.com/username/project',
-            image: 'https://via.placeholder.com/400x250/69c0ff/ffffff?text=Portfolio'
+            title: 'Predictive Analytics Dashboard',
+            description: 'Time series forecasting dashboard for sales prediction using LSTM and Prophet models with interactive visualizations.',
+            technologies: ['Python', 'LSTM', 'Prophet', 'Plotly'],
+            demoLink: 'https://github.com/fattsowavy',
+            githubLink: 'https://github.com/fattsowavy',
+            image: 'https://via.placeholder.com/400x250/69c0ff/ffffff?text=Predictive+Analytics'
         },
         {
-            title: 'Blog Platform',
-            description: 'A full-stack blog platform with markdown support, comments, and user authentication.',
-            technologies: ['React', 'Express', 'PostgreSQL', 'JWT'],
-            demoLink: 'https://demo.example.com',
-            githubLink: 'https://github.com/username/project',
-            image: 'https://via.placeholder.com/400x250/91d5ff/ffffff?text=Blog+Platform'
+            title: 'NLP Chatbot',
+            description: 'Intelligent conversational AI chatbot using transformer models and intent classification for customer support.',
+            technologies: ['Python', 'Transformers', 'Rasa', 'NLP'],
+            demoLink: 'https://github.com/fattsowavy',
+            githubLink: 'https://github.com/fattsowavy',
+            image: 'https://via.placeholder.com/400x250/91d5ff/ffffff?text=AI+Chatbot'
         },
         {
-            title: 'Social Media Dashboard',
-            description: 'An analytics dashboard for social media metrics with beautiful charts and data visualization.',
-            technologies: ['React', 'D3.js', 'Node.js', 'MongoDB'],
-            demoLink: 'https://demo.example.com',
-            githubLink: 'https://github.com/username/project',
-            image: 'https://via.placeholder.com/400x250/bae7ff/333333?text=Analytics'
+            title: 'Fraud Detection System',
+            description: 'Machine learning model for detecting fraudulent transactions using ensemble methods and anomaly detection.',
+            technologies: ['Python', 'XGBoost', 'Scikit-learn', 'Pandas'],
+            demoLink: 'https://github.com/fattsowavy',
+            githubLink: 'https://github.com/fattsowavy',
+            image: 'https://via.placeholder.com/400x250/bae7ff/333333?text=Fraud+Detection'
         },
     ];
 
@@ -60,7 +60,7 @@ const Projects = () => {
                     </h2>
                     <div className="w-20 h-1 bg-electric-blue-600 mx-auto rounded-full"></div>
                     <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                        Here are some of my recent projects that showcase my skills and experience
+                        Here are some of my AI/ML and data science projects that demonstrate my expertise in building intelligent solutions
                     </p>
                 </div>
 

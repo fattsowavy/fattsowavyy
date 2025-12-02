@@ -1,17 +1,16 @@
 const About = () => {
     const skills = [
-        { name: 'React.js', level: 90 },
-        { name: 'JavaScript', level: 85 },
-        { name: 'Tailwind CSS', level: 88 },
-        { name: 'Node.js', level: 80 },
-        { name: 'TypeScript', level: 75 },
-        { name: 'Git', level: 85 },
+        { name: 'Python', level: 95 },
+        { name: 'Machine Learning', level: 90 },
+        { name: 'Deep Learning', level: 85 },
+        { name: 'Data Analysis', level: 90 },
+        { name: 'TensorFlow/PyTorch', level: 88 },
+        { name: 'SQL & Databases', level: 87 },
     ];
 
     const badges = [
-        'HTML5', 'CSS3', 'JavaScript', 'React', 'Vue.js', 'Next.js',
-        'Tailwind CSS', 'Bootstrap', 'Node.js', 'Express', 'MongoDB',
-        'PostgreSQL', 'Git', 'Docker', 'AWS', 'Figma'
+        'Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas',
+        'NumPy', 'Keras', 'XGBoost', 'SQL', 'MongoDB', 'Docker', 'AWS', 'Git', 'Jupyter', 'Matplotlib', 'Seaborn'
     ];
 
     return (
@@ -29,25 +28,24 @@ const About = () => {
                     {/* Description */}
                     <div>
                         <h3 className="text-2xl font-semibold text-gray-900 mb-4 font-poppins">
-                            Hello! I'm a Full Stack Developer
+                            Hello! I'm a Data Scientist & AI/ML Engineer
                         </h3>
                         <p className="text-gray-600 mb-4 leading-relaxed">
-                            I'm a passionate developer with a strong foundation in both front-end and back-end technologies.
-                            I love building web applications that are not only functional but also provide an exceptional user experience.
+                            I'm a passionate data scientist with expertise in machine learning, deep learning, and advanced analytics.
+                            I specialize in building intelligent systems that extract meaningful insights from complex datasets and create predictive models that drive business value.
                         </p>
                         <p className="text-gray-600 mb-4 leading-relaxed">
-                            With several years of experience in the industry, I've worked on various projects ranging from
-                            small business websites to large-scale enterprise applications. I'm always eager to learn new
-                            technologies and stay up-to-date with the latest trends in web development.
+                            With extensive experience in the field, I've worked on diverse projects ranging from
+                            predictive modeling and natural language processing to computer vision and recommendation systems. I'm always eager to explore cutting-edge AI technologies and stay current with the latest research in machine learning.
                         </p>
                         <p className="text-gray-600 leading-relaxed">
-                            When I'm not coding, you can find me exploring new technologies, contributing to open-source
-                            projects, or sharing my knowledge through blog posts and tutorials.
+                            When I'm not training models, you can find me exploring new ML frameworks, contributing to data science communities,
+                            or sharing insights through technical articles and research papers.
                         </p>
 
                         {/* Skill Badges */}
                         <div className="mt-8">
-                            <h4 className="text-lg font-semibold text-gray-900 mb-4">Technologies I Work With</h4>
+                            <h4 className="text-lg font-semibold text-gray-900 mb-4">AI/ML Technologies & Tools</h4>
                             <div className="flex flex-wrap gap-2">
                                 {badges.map((badge, index) => (
                                     <span
@@ -86,16 +84,16 @@ const About = () => {
                         {/* Stats */}
                         <div className="grid grid-cols-3 gap-4 mt-10">
                             <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">5+</div>
+                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">3+</div>
                                 <div className="text-sm text-gray-600">Years Exp.</div>
                             </div>
                             <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">50+</div>
-                                <div className="text-sm text-gray-600">Projects</div>
+                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">25+</div>
+                                <div className="text-sm text-gray-600">ML Models</div>
                             </div>
                             <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">30+</div>
-                                <div className="text-sm text-gray-600">Clients</div>
+                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">15+</div>
+                                <div className="text-sm text-gray-600">Projects</div>
                             </div>
                         </div>
                     </div>
