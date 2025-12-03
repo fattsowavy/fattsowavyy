@@ -10,7 +10,7 @@ const About = () => {
 
     const badges = [
         'Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas',
-        'NumPy', 'Keras', 'XGBoost', 'SQL', 'MongoDB', 'Docker', 'AWS', 'Git', 'Jupyter', 'Matplotlib', 'Seaborn'
+        'NumPy', 'Keras', 'XGBoost', 'SQL', 'MongoDB', 'Git', 'Jupyter', 'Matplotlib', 'Seaborn'
     ];
 
     return (
