@@ -30,15 +30,7 @@ const Achievements = () => {
     ];
 
     const research = [
-        {
-            title: 'Sentiment Analysis on Social Media Using BERT',
-            authors: 'Your Name, et al.',
-            venue: 'International Conference on AI and Data Science',
-            year: '202',
-            description: 'Novel approach to sentiment analysis using transformer models with 95% accuracy on Indonesian text.',
-            link: '#',
-            tags: ['NLP', 'Deep Learning', 'BERT']
-        },
+        // 
         // {
         //     title: 'Predictive Modeling for Customer Churn',
         //     authors: 'Your Name, Co-Author',
