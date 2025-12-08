@@ -16,7 +16,7 @@ const Contact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission here
+
         console.log('Form submitted:', formData);
         alert('Thank you for your message! I will get back to you soon.');
         setFormData({ name: '', email: '', message: '' });
@@ -123,9 +123,21 @@ const Contact = () => {
 
                             <button
                                 type="submit"
-                                className="w-full px-8 py-4 bg-electric-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-electric-blue-700 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                                className="group relative w-full px-8 py-4 bg-gradient-to-br from-electric-blue-500 to-electric-blue-700 text-white font-bold rounded-xl shadow-[0_8px_0_0_rgb(37,99,235),0_13px_0_0_rgb(29,78,216),0_17px_30px_0_rgba(37,99,235,0.4)] hover:shadow-[0_6px_0_0_rgb(37,99,235),0_10px_0_0_rgb(29,78,216),0_15px_25px_0_rgba(37,99,235,0.5)] active:shadow-[0_2px_0_0_rgb(37,99,235),0_4px_0_0_rgb(29,78,216),0_5px_10px_0_rgba(37,99,235,0.3)] hover:translate-y-[2px] active:translate-y-[6px] transition-all duration-150 ease-out overflow-hidden"
                             >
-                                Send Message
+                                <span className="relative z-10 flex items-center justify-center gap-2">
+                                    <span className="group-hover:scale-105 transition-transform duration-150">Send Message</span>
+                                    <svg
+                                        className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-150"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </span>
+                                {/* Shine effect */}
+                                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 group-hover:animate-[shimmer_1.5s_ease-in-out] -translate-x-full group-hover:translate-x-full transition-all duration-1000"></span>
                             </button>
                         </form>
                     </div>

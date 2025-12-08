@@ -84,15 +84,15 @@ const About = () => {
                         {/* Stats */}
                         <div className="grid grid-cols-3 gap-4 mt-10">
                             <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">3+</div>
+                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">1+</div>
                                 <div className="text-sm text-gray-600">Years Exp.</div>
                             </div>
                             <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">25+</div>
+                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">5+</div>
                                 <div className="text-sm text-gray-600">ML Models</div>
                             </div>
                             <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">15+</div>
+                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">5+</div>
                                 <div className="text-sm text-gray-600">Projects</div>
                             </div>
                         </div>
