@@ -1,9 +1,13 @@
-import profilePhoto from '../assets/Fatwa.jpg';
+import profilePhoto from '../assets/ftwcp.png';
+import PhysicsBackground from './PhysicsBackground';
 
 const Hero = () => {
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-electric-blue-50 pt-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-white to-electric-blue-50 pt-16">
+            {/* Physics Background */}
+            <PhysicsBackground />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
                 <div className="text-center">
                     {/* Profile Photo */}
                     <div className="mb-8 animate-fade-in">
@@ -29,14 +33,14 @@ const Hero = () => {
                     </h1>
 
                     {/* Description */}
-                    <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto animate-slide-up-delay font-inter">
+                    <p className="text-xl sm:text-2xl text-blue-600 mb-8 max-w-2xl mx-auto animate-slide-up-delay font-bold">
                         Data Scientist | AI/ML Engineer
                     </p>
 
-                    <p className="text-base sm:text-lg text-gray-500 mb-10 max-w-3xl mx-auto animate-slide-up-delay-2">
+                    {/* <p className="text-base sm:text-lg text-blue-500 mb-10 max-w-3xl mx-auto animate-slide-up-delay-2 font-semibold bg-white/60 p-6 rounded-2xl  border border-white/40">
                         Transforming data into actionable insights and building intelligent solutions.
                         Specialized in machine learning, deep learning, and advanced data analytics to solve complex problems.
-                    </p>
+                    </p> */}
 
                     {/* CTA Button */}
                     {/* <div className="animate-slide-up-delay-3">

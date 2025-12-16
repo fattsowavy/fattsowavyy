@@ -36,4 +36,4 @@ MIT License - feel free to use this project for your own portfolio!
 
 ---
 
-Built with <3by Muh Fatwah Fajriansyah M
+Built with <3 by Muh Fatwah Fajriansyah M
