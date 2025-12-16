@@ -2,14 +2,14 @@
 
 Personal portfolio website showcasing my work as a Data Scientist and AI/ML Engineer.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **React** - UI framework
 - **Vite** - Build tool
 - **Tailwind CSS** - Styling
 - **JavaScript** - Programming language
 
-## 🎨 Features
+## Features
 
 - Responsive design
 - Animated gradient backgrounds
@@ -17,7 +17,7 @@ Personal portfolio website showcasing my work as a Data Scientist and AI/ML Engi
 - Smooth transitions and animations
 - Modern UI/UX
 
-## 📦 Installation
+## Installation
 
 ```bash
 # Install dependencies
@@ -30,10 +30,10 @@ npm run dev
 npm run build
 ```
 
-## 📄 License
+## License
 
 MIT License - feel free to use this project for your own portfolio!
 
 ---
 
-Built with ❤️ by Muh Fatwah Fajriansyah M
+Built with <3by Muh Fatwah Fajriansyah M
