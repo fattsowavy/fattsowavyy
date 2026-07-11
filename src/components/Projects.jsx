@@ -13,14 +13,14 @@ const Projects = () => {
         //     githubLink: 'https://github.com/fattsowavy',
         //     image: 'https://via.placeholder.com/400x250/0050ff/ffffff?text=Sentiment+Analysis'
         // },
-        {
-            title: 'Url Shortener and QrCode Generator',
-            description: 'Url shortener and QrCode generator using Python Flask and Qrcode.',
-            technologies: ['Python', 'Flask', 'Qrcode', 'HTML', 'CSS', 'JavaScript'],
-            // demoLink: 'https://github.com/fattsowavy',
-            githubLink: 'https://github.com/fattsowavy/Shorterner-Url-and-QrCode-Generator',
-            image: project1
-        },
+        // {
+        //     title: 'Url Shortener and QrCode Generator',
+        //     description: 'Url shortener and QrCode generator using Python Flask and Qrcode.',
+        //     technologies: ['Python', 'Flask', 'Qrcode', 'HTML', 'CSS', 'JavaScript'],
+        //     // demoLink: 'https://github.com/fattsowavy',
+        //     githubLink: 'https://github.com/fattsowavy/Shorterner-Url-and-QrCode-Generator',
+        //     image: project1
+        // },
         {
             title: 'Lab Chatbot',
             description: 'Interactive chatbot for lab management using FuzzyWuzzy.',

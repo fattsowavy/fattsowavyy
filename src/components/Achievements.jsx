@@ -31,15 +31,15 @@ const Achievements = () => {
 
     const research = [
         // 
-        // {
-        //     title: 'Predictive Modeling for Customer Churn',
-        //     authors: 'Your Name, Co-Author',
-        //     venue: 'Journal of Machine Learning Research',
-        //     year: '2023',
-        //     description: 'Ensemble learning approach for predicting customer churn with improved precision.',
-        //     link: '#',
-        //     tags: ['Machine Learning', 'Ensemble Methods']
-        // },
+        {
+            title: 'Development of a Low-Resource Automatic Speech Recognition System for the Makassar Dialect',
+            authors: 'Huzain Azis, Muh Fatwah Fajriansyah M',
+            venue: '2026 20th International Conference on Ubiquitous Information Management and Communication (IMCOM)',
+            year: '2026',
+            description: 'These findings underscore the urgent need for dialect-aware ASR adaptation and dataset development, providing a foundation for inclusive speech technology across Indonesia linguistic diversity.',
+            link: 'https://ieeexplore.ieee.org/abstract/document/11360893',
+            tags: ['Automatic Speech Recognition', 'Low-Resource', 'XLS-R', 'Deep Learning']
+        },
         // {
         //     title: 'Image Classification Using Transfer Learning',
         //     authors: 'Your Name',
