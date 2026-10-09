@@ -1,91 +1,94 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { gallery } from '../data/gallery';
+
+const navLinks = [
+    { name: 'About', href: '#about' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Achievements', href: '#achievements' },
+    { name: 'Projects', href: '#projects' },
+    ...(gallery.length > 0 ? [{ name: 'Gallery', href: '#gallery' }] : []),
+    { name: 'Contact', href: '#contact' },
+];
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [active, setActive] = useState('');
 
-    const navLinks = [
-        { name: 'Home', href: '#home' },
-        { name: 'About', href: '#about' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Achievements', href: '#achievements' },
-        { name: 'Contact', href: '#contact' },
-    ];
+    useEffect(() => {
+        const sections = ['home', ...navLinks.map((l) => l.href.slice(1))]
+            .map((id) => document.getElementById(id))
+            .filter(Boolean);
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+                });
+            },
+            { rootMargin: '-40% 0px -55% 0px' }
+        );
+        sections.forEach((s) => observer.observe(s));
+        return () => observer.disconnect();
+    }, []);
 
     const scrollToSection = (e, href) => {
         e.preventDefault();
-        const element = document.querySelector(href);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            setIsMenuOpen(false);
-        }
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+        setIsMenuOpen(false);
     };
 
-    return (
-        <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-sm z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
-                    {/* Logo */}
-                    <div className="flex-shrink-0">
-                        <a
-                            href="#home"
-                            onClick={(e) => scrollToSection(e, '#home')}
-                            className="text-2xl font-bold text-gradient font-poppins"
-                        >
-                            Fattsowavy
-                        </a>
-                    </div>
+    const linkClass = (href) =>
+        `font-medium transition-colors hover:text-olive-dark ${
+            active === href ? 'text-olive-dark underline decoration-2 underline-offset-8' : ''
+        }`;
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex space-x-8">
+    return (
+        <nav className="fixed inset-x-0 top-0 z-50 border-b border-ink/15 bg-cream/95 backdrop-blur-sm">
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                <div className="flex h-16 items-center justify-between">
+                    <a
+                        href="#home"
+                        onClick={(e) => scrollToSection(e, '#home')}
+                        className="font-display text-xl font-semibold"
+                    >
+                        Fatwah Fajriansyah
+                    </a>
+
+                    <div className="hidden space-x-8 text-sm md:flex">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
                                 onClick={(e) => scrollToSection(e, link.href)}
-                                className="text-gray-700 hover:text-electric-blue-600 transition-colors duration-300 font-medium"
+                                className={linkClass(link.href)}
                             >
                                 {link.name}
                             </a>
                         ))}
                     </div>
 
-                    {/* Mobile Menu Button */}
-                    <div className="md:hidden">
-                        <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="text-gray-700 hover:text-electric-blue-600 focus:outline-none"
-                            aria-label="Toggle menu"
-                        >
-                            <svg
-                                className="h-6 w-6"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                {isMenuOpen ? (
-                                    <path d="M6 18L18 6M6 6l12 12" />
-                                ) : (
-                                    <path d="M4 6h16M4 12h16M4 18h16" />
-                                )}
-                            </svg>
-                        </button>
-                    </div>
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="md:hidden"
+                        aria-label="Toggle menu"
+                        aria-expanded={isMenuOpen}
+                    >
+                        <svg className="h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                            {isMenuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+                        </svg>
+                    </button>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
             {isMenuOpen && (
-                <div className="md:hidden bg-white border-t border-gray-100">
-                    <div className="px-2 pt-2 pb-3 space-y-1">
+                <div className="border-t border-ink/15 bg-cream md:hidden">
+                    <div className="space-y-1 px-4 py-3">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
                                 onClick={(e) => scrollToSection(e, link.href)}
-                                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-electric-blue-600 hover:bg-electric-blue-50 transition-colors duration-300"
+                                className={`block py-2 ${linkClass(link.href)}`}
                             >
                                 {link.name}
                             </a>

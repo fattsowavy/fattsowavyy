@@ -7,25 +7,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        'electric-blue': {
-          50: '#e6f7ff',
-          100: '#bae7ff',
-          200: '#91d5ff',
-          300: '#69c0ff',
-          400: '#40a9ff',
-          500: '#1890ff',
-          600: '#0050ff',
-          700: '#0040dd',
-          800: '#0030bb',
-          900: '#002099',
+        cream: '#F6F2E9',
+        ink: '#6E3511',
+        sage: '#91AC67',
+        // single accent; `dark` is for small text where the base value is just under AA on cream
+        olive: {
+          DEFAULT: '#597928',
+          dark: '#4B6620',
         },
       },
       fontFamily: {
-        'inter': ['Inter', 'sans-serif'],
-        'poppins': ['Poppins', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Newsreader', 'Georgia', 'serif'],
       },
     },
   },
   plugins: [],
 }
-

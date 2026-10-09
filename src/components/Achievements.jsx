@@ -1,179 +1,79 @@
-import certif1 from '../assets/certif/certif1.png';
-import certif2 from '../assets/certif/certif2.png';
+import { publication, certifications } from '../data/achievements';
+import Reveal from './Reveal';
+import SectionTitle from './SectionTitle';
 
-const Achievements = () => {
-    const certificates = [
-        {
-            title: 'Learn Machine Learning for Beginners',
-            issuer: 'Dicoding Indonesia',
-            date: '2025',
-            description: 'Completed comprehensive ML course covering supervised learning and best practices.',
-            image: certif1,
-            credentialUrl: 'https://www.dicoding.com/certificates/N9ZO2O6J6PG5'
-        },
-        {
-            title: 'Fundamentals of Deep Learning ',
-            issuer: 'Nvidia',
-            date: '2025',
-            description: 'Mastered deep learning fundamentals, CNNs and sequence models.',
-            image: certif2,
-            credentialUrl: 'https://learn.nvidia.com/certificates?id=xHDpNa87QR-budXTZ7L97w'
-        },
-        // {
-        //     title: 'TensorFlow Developer Certificate',
-        //     issuer: 'Google',
-        //     date: '2023',
-        //     description: 'Certified in building and deploying ML models using TensorFlow.',
-        //     image: 'https://via.placeholder.com/400x300/40a9ff/ffffff?text=TF+Certificate',
-        //     credentialUrl: '#'
-        // },
-    ];
+const Achievements = () => (
+    <section id="achievements" className="scroll-mt-16 border-t border-ink/20 py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <SectionTitle label="Achievements" title="Publication & certifications" />
 
-    const research = [
-        // 
-        {
-            title: 'Development of a Low-Resource Automatic Speech Recognition System for the Makassar Dialect',
-            authors: 'Huzain Azis, Muh Fatwah Fajriansyah M',
-            venue: '2026 20th International Conference on Ubiquitous Information Management and Communication (IMCOM)',
-            year: '2026',
-            description: 'These findings underscore the urgent need for dialect-aware ASR adaptation and dataset development, providing a foundation for inclusive speech technology across Indonesia linguistic diversity.',
-            link: 'https://ieeexplore.ieee.org/abstract/document/11360893',
-            tags: ['Automatic Speech Recognition', 'Low-Resource', 'XLS-R', 'Deep Learning']
-        },
-        // {
-        //     title: 'Image Classification Using Transfer Learning',
-        //     authors: 'Your Name',
-        //     venue: 'IEEE Conference on Computer Vision',
-        //     year: '2023',
-        //     description: 'Comparative study of transfer learning techniques for medical image classification.',
-        //     link: '#',
-        //     tags: ['Computer Vision', 'Transfer Learning']
-        // },
-    ];
-
-    return (
-        <section id="achievements" className="py-20 bg-gradient-to-br from-electric-blue-50 to-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Section Title */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 font-poppins">
-                        My <span className="text-electric-blue-600">Achievements</span>
-                    </h2>
-                    <div className="w-20 h-1 bg-electric-blue-600 mx-auto rounded-full"></div>
-                    <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                        Certifications and research contributions in AI/ML and Data Science
+            {/* Publication */}
+            <Reveal>
+                <article className="rounded-md border border-ink bg-cream p-6 sm:p-8">
+                    <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-olive-dark">
+                        Publication · {publication.year}
                     </p>
-                </div>
+                    <h3 className="font-display text-2xl font-medium sm:text-3xl">{publication.title}</h3>
+                    <p className="mt-3 text-ink/80">{publication.authors}</p>
+                    <p className="text-sm text-ink/70">{publication.venue}</p>
+                    <p className="mt-4 max-w-3xl leading-relaxed text-ink/80">{publication.description}</p>
 
-                {/* Certificates Section */}
-                <div className="mb-16">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-8 font-poppins">
-                        Certifications
-                    </h3>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {certificates.map((cert, index) => (
-                            <div
-                                key={index}
-                                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
-                            >
-                                {/* Certificate Image */}
-                                <div className="relative overflow-hidden h-48 bg-gradient-to-br from-electric-blue-100 to-electric-blue-50">
-                                    <img
-                                        src={cert.image}
-                                        alt={cert.title}
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div>
-
-                                {/* Certificate Content */}
-                                <div className="p-6">
-                                    <h4 className="text-xl font-bold text-gray-900 mb-2 font-poppins">
-                                        {cert.title}
-                                    </h4>
-                                    <p className="text-electric-blue-600 font-semibold mb-2">
-                                        {cert.issuer}
-                                    </p>
-                                    <p className="text-sm text-gray-500 mb-3">
-                                        {cert.date}
-                                    </p>
-                                    <p className="text-gray-600 text-sm mb-4">
-                                        {cert.description}
-                                    </p>
-                                    <a
-                                        href={cert.credentialUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center text-electric-blue-600 hover:text-electric-blue-700 font-medium text-sm"
-                                    >
-                                        View Credential
-                                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
+                    <ul className="mt-5 flex flex-wrap gap-2">
+                        {publication.tags.map((tag) => (
+                            <li key={tag} className="rounded-full bg-sage/30 px-3 py-1 text-xs font-medium">
+                                {tag}
+                            </li>
                         ))}
+                    </ul>
+
+                    <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+                        <a
+                            href={publication.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-semibold text-olive-dark underline underline-offset-4 hover:text-ink"
+                        >
+                            Read on IEEE Xplore
+                        </a>
+                        <span className="text-sm text-ink/70">DOI {publication.doi}</span>
                     </div>
-                </div>
+                </article>
+            </Reveal>
 
-                {/* Research/Publications Section */}
-                <div>
-                    <h3 className="text-3xl font-bold text-gray-900 mb-8 font-poppins">
-                        Research & Publications
-                    </h3>
-                    <div className="space-y-6">
-                        {research.map((paper, index) => (
-                            <div
-                                key={index}
-                                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300"
-                            >
-                                <div className="flex flex-col md:flex-row md:items-start md:justify-between">
-                                    <div className="flex-1">
-                                        <h4 className="text-xl font-bold text-gray-900 mb-2 font-poppins">
-                                            {paper.title}
-                                        </h4>
-                                        <p className="text-gray-600 mb-2">
-                                            <span className="font-semibold">Authors:</span> {paper.authors}
-                                        </p>
-                                        <p className="text-electric-blue-600 font-medium mb-3">
-                                            {paper.venue} • {paper.year}
-                                        </p>
-                                        <p className="text-gray-600 mb-4">
-                                            {paper.description}
-                                        </p>
-
-                                        {/* Tags */}
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                            {paper.tags.map((tag, tagIndex) => (
-                                                <span
-                                                    key={tagIndex}
-                                                    className="px-3 py-1 bg-electric-blue-50 text-electric-blue-700 text-xs font-medium rounded-full"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <a
-                                        href={paper.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="mt-4 md:mt-0 md:ml-6 inline-flex items-center px-4 py-2 bg-electric-blue-600 text-white rounded-lg hover:bg-electric-blue-700 transition-colors duration-300 text-sm font-medium whitespace-nowrap"
-                                    >
-                                        Read Paper
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
+            {/* Certifications */}
+            <h3 className="mb-6 mt-16 font-display text-2xl font-medium">Certifications</h3>
+            <ul className="grid gap-4 md:grid-cols-2">
+                {certifications.map((cert) => (
+                    <li key={cert.title} className="flex gap-4 rounded-md border border-ink/25 p-4">
+                        {cert.image && (
+                            <img
+                                src={cert.image}
+                                alt={`${cert.title} certificate`}
+                                className="h-20 w-28 shrink-0 rounded border border-ink/20 object-cover"
+                            />
+                        )}
+                        <div>
+                            <p className="font-semibold">{cert.title}</p>
+                            <p className="text-sm text-ink/70">
+                                {cert.issuer}
+                                {cert.year && ` · ${cert.year}`}
+                            </p>
+                            {cert.url && (
+                                <a
+                                    href={cert.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mt-2 inline-block text-sm font-semibold text-olive-dark underline underline-offset-4 hover:text-ink"
+                                >
+                                    View credential
+                                </a>
+                            )}
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+);
 
 export default Achievements;

@@ -1,6 +1,6 @@
 # Portfolio Website
 
-Personal portfolio website showcasing my work as a Data Scientist and AI/ML Engineer.
+Personal portfolio website showcasing my experience, achievements, and projects as an AI Researcher Intern.
 
 ## Tech Stack
 
@@ -11,11 +11,10 @@ Personal portfolio website showcasing my work as a Data Scientist and AI/ML Engi
 
 ## Features
 
-- Responsive design
-- Animated gradient backgrounds
-- 3D glassmorphism effects
-- Smooth transitions and animations
-- Modern UI/UX
+- Responsive, single-accent design (cream, brown, olive, sage)
+- Sections: About, Experience, Achievements, Projects, Contact
+- Content lives in `src/data/` (profile, experience, achievements, projects)
+- Active nav highlighting and subtle scroll reveal (respects reduced motion)
 
 ## Installation
 

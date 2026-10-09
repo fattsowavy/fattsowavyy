@@ -1,71 +1,58 @@
 import profilePhoto from '../assets/ftwcp.png';
-import PhysicsBackground from './PhysicsBackground';
+import { profile } from '../data/profile';
 
-const Hero = () => {
-    return (
-        <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-white to-electric-blue-50 pt-16">
-            {/* Physics Background */}
-            <PhysicsBackground />
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-                <div className="text-center">
-                    {/* Profile Photo */}
-                    <div className="mb-8 animate-fade-in">
-                        <div className="relative inline-block">
-                            <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-electric-blue-500 shadow-xl mx-auto">
-                                <img
-                                    src={profilePhoto}
-                                    alt="Profile"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-electric-blue-500 rounded-full flex items-center justify-center shadow-lg">
-                                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Name */}
-                    <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up font-poppins">
-                        <span className="text-gradient">Muh Fatwah Fajriansyah M</span>
-                    </h1>
-
-                    {/* Description */}
-                    <p className="text-xl sm:text-2xl text-blue-600 mb-8 max-w-2xl mx-auto animate-slide-up-delay font-bold">
-                        Data Scientist | AI/ML Engineer
+const Hero = () => (
+    <section id="home" className="scroll-mt-16 pt-16">
+        <div className="mx-auto max-w-6xl px-4 pb-16 pt-14 sm:px-6 md:pt-20 lg:px-8">
+            <div className="grid items-center gap-12 md:grid-cols-[1.4fr_1fr]">
+                <div>
+                    <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-olive-dark">
+                        {profile.location}
                     </p>
+                    <h1 className="font-display text-5xl font-medium leading-tight sm:text-6xl lg:text-7xl">
+                        {profile.name}
+                    </h1>
+                    <p className="mt-5 text-xl font-medium sm:text-2xl">{profile.tagline}</p>
+                    <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink/80">{profile.summary}</p>
 
-                    {/* <p className="text-base sm:text-lg text-blue-500 mb-10 max-w-3xl mx-auto animate-slide-up-delay-2 font-semibold bg-white/60 p-6 rounded-2xl  border border-white/40">
-                        Transforming data into actionable insights and building intelligent solutions.
-                        Specialized in machine learning, deep learning, and advanced data analytics to solve complex problems.
-                    </p> */}
-
-                    {/* CTA Button */}
-                    {/* <div className="animate-slide-up-delay-3">
+                    <div className="mt-8 flex flex-wrap gap-3">
                         <a
-                            href="/cv.pdf"
+                            href={profile.cv}
                             download
-                            className="inline-flex items-center px-8 py-4 bg-electric-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-electric-blue-700 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                            className="rounded-md bg-olive-dark px-6 py-3 font-semibold text-cream transition-colors hover:bg-ink"
                         >
-                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
                             Download CV
                         </a>
-                    </div> */}
-
-                    {/* Scroll Indicator */}
-                    <div className="mt-16 animate-bounce">
-                        <svg className="w-6 h-6 mx-auto text-electric-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                        </svg>
+                        <a
+                            href="#contact"
+                            className="rounded-md border border-ink px-6 py-3 font-semibold transition-colors hover:bg-ink hover:text-cream"
+                        >
+                            Get in touch
+                        </a>
                     </div>
                 </div>
+
+                <div className="relative mx-auto w-64 sm:w-72 md:w-full md:max-w-xs">
+                    <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-md bg-sage" aria-hidden="true" />
+                    <img
+                        src={profilePhoto}
+                        alt={`Portrait of ${profile.name}`}
+                        className="relative aspect-[4/5] w-full rounded-md border border-ink object-cover"
+                    />
+                </div>
             </div>
-        </section>
-    );
-};
+
+            <dl className="mt-16 grid grid-cols-2 gap-y-6 border-t border-ink/20 pt-8 md:grid-cols-4">
+                {profile.facts.map((fact) => (
+                    <div key={fact.label}>
+                        <dt className="sr-only">{fact.label}</dt>
+                        <dd className="font-display text-4xl font-medium">{fact.value}</dd>
+                        <p className="mt-1 text-sm text-ink/70" aria-hidden="true">{fact.label}</p>
+                    </div>
+                ))}
+            </dl>
+        </div>
+    </section>
+);
 
 export default Hero;

@@ -1,106 +1,48 @@
-const About = () => {
-    const skills = [
-        { name: 'Python', level: 95 },
-        { name: 'Machine Learning', level: 90 },
-        { name: 'Deep Learning', level: 85 },
-        { name: 'Data Analysis', level: 90 },
-        { name: 'TensorFlow/PyTorch', level: 88 },
-        { name: 'SQL & Databases', level: 87 },
-    ];
+import { profile, education, skillGroups } from '../data/profile';
+import Reveal from './Reveal';
+import SectionTitle from './SectionTitle';
 
-    const badges = [
-        'Python', 'TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas',
-        'NumPy', 'Keras', 'XGBoost', 'SQL', 'MongoDB', 'Git', 'Jupyter', 'Matplotlib', 'Seaborn'
-    ];
+const About = () => (
+    <section id="about" className="scroll-mt-16 border-t border-ink/20 py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <SectionTitle label="About" title="A bit about me" />
 
-    return (
-        <section id="about" className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Section Title */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 font-poppins">
-                        About <span className="text-electric-blue-600">Me</span>
-                    </h2>
-                    <div className="w-20 h-1 bg-electric-blue-600 mx-auto rounded-full"></div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-12 items-start">
-                    {/* Description */}
-                    <div>
-                        <h3 className="text-2xl font-semibold text-gray-900 mb-4 font-poppins">
-                            Hello! I'm a Data Scientist & AI/ML Engineer
-                        </h3>
-                        <p className="text-gray-600 mb-4 leading-relaxed">
-                            I'm a passionate data scientist with expertise in machine learning, deep learning, and advanced analytics.
-                            I specialize in building intelligent systems that extract meaningful insights from complex datasets and create predictive models that drive business value.
-                        </p>
-                        <p className="text-gray-600 mb-4 leading-relaxed">
-                            With extensive experience in the field, I've worked on diverse projects ranging from
-                            predictive modeling and natural language processing to computer vision and recommendation systems. I'm always eager to explore cutting-edge AI technologies and stay current with the latest research in machine learning.
-                        </p>
-                        <p className="text-gray-600 leading-relaxed">
-                            When I'm not training models, you can find me exploring new ML frameworks, contributing to data science communities,
-                            or sharing insights through technical articles and research papers.
-                        </p>
-
-                        {/* Skill Badges */}
-                        <div className="mt-8">
-                            <h4 className="text-lg font-semibold text-gray-900 mb-4">AI/ML Technologies & Tools</h4>
-                            <div className="flex flex-wrap gap-2">
-                                {badges.map((badge, index) => (
-                                    <span
-                                        key={index}
-                                        className="px-4 py-2 bg-electric-blue-50 text-electric-blue-700 rounded-full text-sm font-medium hover:bg-electric-blue-100 transition-colors duration-300 cursor-default"
-                                    >
-                                        {badge}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
+            <div className="grid gap-12 md:grid-cols-2">
+                <Reveal>
+                    <div className="space-y-4 text-lg leading-relaxed text-ink/80">
+                        {profile.bio.map((p) => (
+                            <p key={p}>{p}</p>
+                        ))}
                     </div>
 
-                    {/* Skills Progress Bars */}
-                    <div>
-                        <h3 className="text-2xl font-semibold text-gray-900 mb-6 font-poppins">
-                            My Skills
-                        </h3>
-                        <div className="space-y-6">
-                            {skills.map((skill, index) => (
-                                <div key={index}>
-                                    <div className="flex justify-between mb-2">
-                                        <span className="text-gray-700 font-medium">{skill.name}</span>
-                                        <span className="text-electric-blue-600 font-semibold">{skill.level}%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                                        <div
-                                            className="bg-gradient-to-r from-electric-blue-500 to-electric-blue-700 h-full rounded-full transition-all duration-1000 ease-out"
-                                            style={{ width: `${skill.level}%` }}
-                                        ></div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                    <h3 className="mb-4 mt-10 font-display text-2xl font-medium">Education</h3>
+                    <ul className="space-y-5">
+                        {education.map((e) => (
+                            <li key={e.school} className="border-l-2 border-sage pl-4">
+                                <p className="font-semibold">{e.school}</p>
+                                <p className="text-ink/80">{e.degree}</p>
+                                <p className="text-sm text-ink/70">
+                                    {e.period} · {e.note}
+                                </p>
+                            </li>
+                        ))}
+                    </ul>
+                </Reveal>
 
-                        {/* Stats */}
-                        <div className="grid grid-cols-3 gap-4 mt-10">
-                            <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">1+</div>
-                                <div className="text-sm text-gray-600">Years Exp.</div>
+                <Reveal>
+                    <h3 className="mb-4 font-display text-2xl font-medium">Skills</h3>
+                    <dl className="divide-y divide-ink/15 border-y border-ink/15">
+                        {skillGroups.map((group) => (
+                            <div key={group.title} className="grid gap-2 py-4 sm:grid-cols-[10rem_1fr]">
+                                <dt className="text-sm font-semibold uppercase tracking-wide text-olive-dark">{group.title}</dt>
+                                <dd className="text-ink/80">{group.items.join(' · ')}</dd>
                             </div>
-                            <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">5+</div>
-                                <div className="text-sm text-gray-600">ML Models</div>
-                            </div>
-                            <div className="text-center p-4 bg-electric-blue-50 rounded-lg">
-                                <div className="text-3xl font-bold text-electric-blue-600 mb-1">5+</div>
-                                <div className="text-sm text-gray-600">Projects</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        ))}
+                    </dl>
+                </Reveal>
             </div>
-        </section>
-    );
-};
+        </div>
+    </section>
+);
 
 export default About;
