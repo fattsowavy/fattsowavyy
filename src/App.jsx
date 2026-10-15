@@ -1,3 +1,5 @@
+import BootScreen from './components/BootScreen';
+import RetroFX from './components/RetroFX';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -10,6 +12,8 @@ import Contact from './components/Contact';
 function App() {
   return (
     <div className="App">
+      <BootScreen />
+      <RetroFX />
       <Navbar />
       <main>
         <Hero />

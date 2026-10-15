@@ -1,29 +1,199 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');
+/* Fonts (Press Start 2P + Pixelify Sans) are loaded non-blocking from index.html. */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /* Dark "CRT" theme: Sweetie 16 palette. Values are RGB triplets for Tailwind's alpha support. */
+  :root {
+    --px-bg: 15 15 27;
+    --px-panel: 26 28 44;
+    --px-ink: 244 244 244;
+    --px-muted: 148 176 194;
+    --px-line: 86 108 134;
+    --px-shadow: 51 60 87;
+    --px-yellow: 255 205 117;
+    --px-red: 177 62 83;
+    --px-green: 56 183 100;
+    --px-cyan: 65 166 246;
+    --px-purple: 93 39 93;
+    --px-orange: 239 125 87;
+    --px-on-accent: 15 15 27;
+    --px-focus: 255 205 117;
+    color-scheme: dark;
+  }
+
+  /* Light "Gameboy" theme: four greens; every accent collapses to the darkest shade. */
+  :root[data-theme='gb'] {
+    --px-bg: 155 188 15;
+    --px-panel: 180 204 90;
+    --px-ink: 15 56 15;
+    --px-muted: 30 74 30;
+    --px-line: 15 56 15;
+    --px-shadow: 48 98 48;
+    --px-yellow: 15 56 15;
+    --px-red: 48 98 48;
+    --px-green: 15 56 15;
+    --px-cyan: 15 56 15;
+    --px-purple: 48 98 48;
+    --px-orange: 15 56 15;
+    --px-on-accent: 155 188 15;
+    --px-focus: 15 56 15;
+    color-scheme: light;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-cream font-sans text-ink antialiased;
+    @apply bg-px-bg font-sans text-lg leading-relaxed text-px-ink;
   }
 
   ::selection {
-    @apply bg-sage/60 text-ink;
+    @apply bg-px-yellow text-px-on;
   }
 
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-olive;
+    outline: 4px solid rgb(var(--px-focus));
+    outline-offset: 4px;
   }
 
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
+    }
+
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /*
+   * Notched pixel frame: four offset box-shadows draw the border without its corners,
+   * plus a stepped hard drop shadow. Set --edge to recolor the border.
+   * Technique after NES.css (MIT) and 8bitcn (MIT); original implementation.
+   */
+  .px-card {
+    --edge: rgb(var(--px-line));
+    @apply bg-px-panel;
+    box-shadow:
+      0 -4px 0 0 var(--edge),
+      0 4px 0 0 var(--edge),
+      -4px 0 0 0 var(--edge),
+      4px 0 0 0 var(--edge),
+      8px 8px 0 0 rgb(var(--px-shadow));
+  }
+
+  .edge-ink { --edge: rgb(var(--px-ink)); }
+  .edge-yellow { --edge: rgb(var(--px-yellow)); }
+  .edge-green { --edge: rgb(var(--px-green)); }
+  .edge-cyan { --edge: rgb(var(--px-cyan)); }
+  .edge-orange { --edge: rgb(var(--px-orange)); }
+
+  .px-btn {
+    --edge: rgb(var(--px-ink));
+    @apply relative inline-flex min-h-[44px] select-none items-center justify-center gap-2 px-5 py-3 font-pixel text-xs uppercase leading-none no-underline;
+    margin: 4px;
+    box-shadow:
+      0 -4px 0 0 var(--edge),
+      0 4px 0 0 var(--edge),
+      -4px 0 0 0 var(--edge),
+      4px 0 0 0 var(--edge),
+      inset -4px -4px 0 0 rgb(0 0 0 / 0.3);
+  }
+
+  .px-btn:hover {
+    box-shadow:
+      0 -4px 0 0 var(--edge),
+      0 4px 0 0 var(--edge),
+      -4px 0 0 0 var(--edge),
+      4px 0 0 0 var(--edge),
+      inset -4px -4px 0 0 rgb(0 0 0 / 0.3),
+      inset 4px 4px 0 0 rgb(255 255 255 / 0.25);
+  }
+
+  .px-btn:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 -4px 0 0 var(--edge),
+      0 4px 0 0 var(--edge),
+      -4px 0 0 0 var(--edge),
+      4px 0 0 0 var(--edge),
+      inset 4px 4px 0 0 rgb(0 0 0 / 0.3);
+  }
+
+  .px-btn-primary { @apply bg-px-yellow text-px-on; }
+  .px-btn-green { @apply bg-px-green text-px-on; }
+  .px-btn-cyan { @apply bg-px-cyan text-px-on; }
+  .px-btn-ghost { @apply bg-px-panel text-px-ink; }
+
+  /* Small square chip: tech stack, tags */
+  .px-chip {
+    @apply inline-block border-2 border-px-line bg-px-bg px-2 py-1 font-pixel text-[10px] uppercase leading-normal text-px-ink;
+  }
+
+  /* Real photos: slight posterize plus an ordered-dither dot overlay so they sit in the palette */
+  .px-photo {
+    @apply relative overflow-hidden;
+  }
+
+  .px-photo img {
+    filter: contrast(1.1) saturate(0.85);
+  }
+
+  .px-photo::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0;
+    background-image: radial-gradient(rgb(0 0 0 / 0.22) 1px, transparent 1.2px);
+    background-size: 3px 3px;
+  }
+
+  :root[data-theme='gb'] .px-photo img {
+    filter: grayscale(1) sepia(1) hue-rotate(40deg) saturate(1.8) contrast(1.05) brightness(0.85);
+  }
+
+  .px-pixelated {
+    image-rendering: pixelated;
+  }
+
+  /* Segmented "HP" fill */
+  .px-segments {
+    background-image: repeating-linear-gradient(90deg, rgb(var(--px-green)) 0 10px, transparent 10px 12px);
+  }
+
+  /* CRT overlay: faint scanlines + vignette */
+  .px-crt {
+    @apply pointer-events-none fixed inset-0 z-[70];
+    background:
+      repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.08) 0 1px, transparent 1px 3px),
+      radial-gradient(ellipse at center, transparent 65%, rgb(0 0 0 / 0.3) 100%);
+  }
+
+  :root[data-theme='gb'] .px-crt {
+    opacity: 0.4;
+  }
+
+  :root[data-fx='off'] .px-fx {
+    display: none;
+  }
+
+  /* Konami easter egg. Filter goes on the root: on <body> it would break position: fixed children. */
+  :root.px-rainbow {
+    @apply animate-px-rainbow;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root.px-rainbow {
+      animation: none;
+      filter: hue-rotate(180deg);
     }
   }
 }

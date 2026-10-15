@@ -1,58 +1,84 @@
 import { projects } from '../data/projects';
+import PixelIcon from './pixel/PixelIcon';
+import SectionHeading from './pixel/SectionHeading';
 import Reveal from './Reveal';
-import SectionTitle from './SectionTitle';
 
-const linkClass = 'font-semibold text-olive-dark underline underline-offset-4 hover:text-ink';
+// Grip ridges along the top of a cartridge
+const ridges = { backgroundImage: 'repeating-linear-gradient(90deg, rgb(var(--px-line)) 0 4px, transparent 4px 10px)' };
 
 const Projects = () => (
-    <section id="projects" className="scroll-mt-16 border-t border-ink/20 py-20">
+    <section id="projects" className="scroll-mt-20 border-t-4 border-px-line py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <SectionTitle label="Projects" title="Things I've built" />
+            <SectionHeading stage={4} label="Projects" title="Things I've built" kicker="Cartridge select" />
 
-            <div className="space-y-6">
-                {projects.map((project) => (
-                    <Reveal key={project.title}>
-                        <article className="grid gap-6 rounded-md border border-ink/25 p-6 sm:p-8 md:grid-cols-[1fr_auto]">
-                            {project.image && (
-                                <img
-                                    src={project.image}
-                                    alt={`${project.title} screenshot`}
-                                    className="w-full rounded border border-ink/20 object-cover md:order-2 md:w-72"
-                                />
-                            )}
-                            <div>
-                                <p className="text-sm font-semibold text-olive-dark">{project.period}</p>
-                                <h3 className="mt-1 font-display text-2xl font-medium sm:text-3xl">{project.title}</h3>
-                                <p className="mt-3 max-w-2xl leading-relaxed text-ink/80">{project.description}</p>
+            <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                {projects.map((project, i) => (
+                    <li key={project.title}>
+                        <Reveal className="h-full">
+                            <article className="px-card flex h-full flex-col p-4">
+                                <div className="mb-4 flex items-center gap-3" aria-hidden="true">
+                                    <span className="h-5 flex-1" style={ridges} />
+                                    <span className="font-pixel text-[10px] text-px-muted">No.{String(i + 1).padStart(2, '0')}</span>
+                                </div>
 
-                                <ul className="mt-5 flex flex-wrap gap-2">
-                                    {project.technologies.map((tech) => (
-                                        <li key={tech} className="rounded-full bg-sage/30 px-3 py-1 text-xs font-medium">
-                                            {tech}
-                                        </li>
-                                    ))}
-                                </ul>
+                                {/* label sticker */}
+                                <div className="flex-1 border-4 border-px-line bg-px-bg p-4">
+                                    {project.image && (
+                                        <div className="px-photo mb-4 aspect-video border-4 border-px-line">
+                                            <img src={project.image} alt={`${project.title} screenshot`} loading="lazy" className="h-full w-full object-cover" />
+                                        </div>
+                                    )}
+                                    <p className="font-pixel text-[10px] uppercase text-px-yellow">{project.period}</p>
+                                    <h3 className="mt-3 font-pixel text-sm uppercase leading-relaxed">{project.title}</h3>
+                                    <p className="mt-3">{project.description}</p>
+                                    <ul className="mt-4 flex flex-wrap gap-2">
+                                        {project.technologies.map((tech) => (
+                                            <li key={tech} className="px-chip">
+                                                {tech}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
 
-                                <div className="mt-6 flex gap-6">
+                                <div className="mt-4 flex flex-wrap gap-3">
                                     {project.demo && (
-                                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                                            Link
+                                        <a
+                                            href={project.demo}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="px-btn px-btn-primary"
+                                            aria-label={`Play: open ${project.title}`}
+                                        >
+                                            <PixelIcon name="cursor" className="h-3 w-2" />
+                                            Play
                                         </a>
                                     )}
                                     {project.github && (
-                                        <a href={project.github} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                                            Source code
+                                        <a
+                                            href={project.github}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="px-btn px-btn-ghost"
+                                            aria-label={`Source code: ${project.title}`}
+                                        >
+                                            Source
                                         </a>
                                     )}
                                     {!project.demo && !project.github && (
-                                        <p className="text-sm text-ink/70">Links and documentation coming soon.</p>
+                                        <p className="text-px-muted">Links and documentation coming soon.</p>
                                     )}
                                 </div>
-                            </div>
-                        </article>
-                    </Reveal>
+                            </article>
+                        </Reveal>
+                    </li>
                 ))}
-            </div>
+
+                {/* honest placeholder, clearly not a project */}
+                <li className="flex min-h-[18rem] flex-col items-center justify-center gap-3 border-4 border-dashed border-px-line p-6 text-center text-px-muted">
+                    <p className="font-pixel text-[10px] uppercase">Empty slot</p>
+                    <p>More projects coming soon.</p>
+                </li>
+            </ul>
         </div>
     </section>
 );
