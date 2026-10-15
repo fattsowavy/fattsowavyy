@@ -45,21 +45,23 @@ const Gallery = () => {
                 <Reveal>
                     <ul className="columns-1 gap-8 sm:columns-2 lg:columns-3">
                         {gallery.map((item, i) => (
-                            <li key={item.file} className="mb-8 break-inside-avoid">
+                            <li key={item.file} className="px-card mb-8 break-inside-avoid p-2">
                                 <button
                                     type="button"
                                     onClick={(e) => openAt(e, i)}
-                                    className="px-card block w-full p-2 text-left"
-                                    aria-label={item.caption ? `Enlarge photo: ${item.caption}` : `Enlarge photo ${i + 1}`}
+                                    className="px-photo block w-full border-4 border-px-line"
+                                    aria-label={item.title ? `Enlarge photo: ${item.title}` : `Enlarge photo ${i + 1}`}
                                 >
-                                    <span className="px-photo block border-4 border-px-line">
-                                        <img src={item.src} alt={item.caption || 'Documentation photo'} loading="lazy" className="block w-full" />
-                                    </span>
-                                    <span className="mt-2 flex items-center justify-between gap-2 px-1 pb-1">
-                                        <span className="font-pixel text-[10px] uppercase text-px-muted">Screenshot {shotNo(i)}</span>
-                                        {item.caption && <span className="text-right">{item.caption}</span>}
-                                    </span>
+                                    <img src={item.src} alt={item.title || 'Documentation photo'} loading="lazy" className="block w-full" />
                                 </button>
+                                <div className="px-2 pb-2 pt-3">
+                                    <p className="font-pixel text-[10px] uppercase leading-relaxed text-px-muted">
+                                        Screenshot {shotNo(i)}
+                                        {item.date && <span className="text-px-cyan"> · {item.date}</span>}
+                                    </p>
+                                    {item.title && <h3 className="mt-2 font-semibold leading-snug">{item.title}</h3>}
+                                    {item.description && <p className="mt-1 text-px-muted">{item.description}</p>}
+                                </div>
                             </li>
                         ))}
                     </ul>
@@ -86,10 +88,20 @@ const Gallery = () => {
                         <figure className="min-h-0">
                             <img
                                 src={photo.src}
-                                alt={photo.caption || 'Documentation photo'}
-                                className="max-h-[70vh] w-auto border-4 border-px-line object-contain"
+                                alt={photo.title || 'Documentation photo'}
+                                className="max-h-[60vh] w-auto border-4 border-px-line object-contain"
                             />
-                            {photo.caption && <figcaption className="mt-3 text-center">{photo.caption}</figcaption>}
+                            {(photo.title || photo.description) && (
+                                <figcaption className="mt-3 max-w-2xl">
+                                    {photo.title && (
+                                        <span className="block font-semibold">
+                                            {photo.title}
+                                            {photo.date && <span className="font-normal text-px-muted"> · {photo.date}</span>}
+                                        </span>
+                                    )}
+                                    {photo.description && <span className="block text-px-muted">{photo.description}</span>}
+                                </figcaption>
+                            )}
                         </figure>
                         {gallery.length > 1 && (
                             <div className="mt-3 flex justify-between gap-4">
