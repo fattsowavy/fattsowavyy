@@ -8,7 +8,7 @@ export const profile = {
         "I'm an Informatics Engineering student at Muslim University of Indonesia. My research is in natural language processing and automatic speech recognition, and I build applications with Python, Laravel, and Flutter.",
         'In 2026 I joined the NLP Laboratory at Kyushu Institute of Technology in Japan as an exchange research student, working on speech recognition for regional dialects with limited data. Back home, I assist in a computer laboratory and led the machine learning division of the Developer Student Club.',
     ],
-    email: 'fatwaaf66@gmail.com',
+    email: 'fatwa.fajri6670@gmail.com',
     links: [
         { name: 'LinkedIn', url: 'https://linkedin.com/in/fatwafajriansyah' },
         { name: 'GitHub', url: 'https://github.com/fattsowavy' },
