@@ -1,17 +1,29 @@
 import certif1 from '../assets/certif/certif1.png';
 import certif2 from '../assets/certif/certif2.png';
 
-export const publication = {
-    title: 'Development of a Low-Resource Automatic Speech Recognition System for the Makassar Dialect',
-    authors: 'Huzain Azis, Muh Fatwah Fajriansyah M',
-    venue: '2026 20th International Conference on Ubiquitous Information Management and Communication (IMCOM)',
-    year: '2026',
-    doi: '10.1109/IMCOM69009.2026.11360893',
-    link: 'https://ieeexplore.ieee.org/abstract/document/11360893',
-    description:
-        'The findings show the need for dialect-aware ASR adaptation and dataset development, a foundation for inclusive speech technology across Indonesia’s linguistic diversity.',
-    tags: ['Automatic Speech Recognition', 'Low-Resource', 'XLS-R', 'Deep Learning'],
-};
+// Newest first. status: 'published' (needs link/doi) or 'accepted' (not out yet: no link shown).
+// authors / description / doi / link are optional and only rendered when present.
+export const publications = [
+    {
+        title: 'Evaluating Synthetic Speech Augmentation for Low-Resource Bugis-Makassar Dialect ASR',
+        status: 'accepted',
+        venue: 'International Conference on Ubiquitous Information Management and Communication (IMCOM 2027)',
+        year: '2027',
+        tags: ['Automatic Speech Recognition', 'Synthetic Speech', 'Data Augmentation', 'Low-Resource'],
+    },
+    {
+        title: 'Development of a Low-Resource Automatic Speech Recognition System for the Makassar Dialect',
+        authors: 'Huzain Azis, Muh Fatwah Fajriansyah M',
+        venue: '2026 20th International Conference on Ubiquitous Information Management and Communication (IMCOM)',
+        status: 'published',
+        year: '2026',
+        doi: '10.1109/IMCOM69009.2026.11360893',
+        link: 'https://ieeexplore.ieee.org/abstract/document/11360893',
+        description:
+            'The findings show the need for dialect-aware ASR adaptation and dataset development, a foundation for inclusive speech technology across Indonesia’s linguistic diversity.',
+        tags: ['Automatic Speech Recognition', 'Low-Resource', 'XLS-R', 'Deep Learning'],
+    },
+];
 
 export const certifications = [
     {
