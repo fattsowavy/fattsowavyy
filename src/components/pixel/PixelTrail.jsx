@@ -46,7 +46,7 @@ const PixelTrail = () => {
 
     if (!enabled) return null;
     return (
-        <div ref={containerRef} className="pointer-events-none fixed left-0 top-0 z-[80]" aria-hidden="true">
+        <div ref={containerRef} className="px-trail pointer-events-none fixed left-0 top-0 z-[80]" aria-hidden="true">
             {Array.from({ length: POOL }, (_, i) => (
                 <span key={i} className="absolute left-0 top-0 h-2 w-2 bg-px-yellow opacity-0" />
             ))}

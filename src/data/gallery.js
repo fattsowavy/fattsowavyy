@@ -18,6 +18,8 @@ const modules = import.meta.glob('../assets/gallery/*.{jpg,jpeg,png,webp}', {
     import: 'default',
 });
 
+export const shotNo = (i) => String(i + 1).padStart(2, '0');
+
 export const gallery = Object.entries(modules)
     .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
     .map(([path, src]) => {

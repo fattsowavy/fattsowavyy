@@ -197,3 +197,75 @@
     }
   }
 }
+
+/*
+ * Gallery trading card (CardViewer + TradingCard). 3D needs preserve-3d on every level, so no
+ * filter / overflow:hidden on these wrappers (both would flatten the card); the photo dither lives on the leaf.
+ * After the "Ghouls" card demo (ghoul.gg, CodePen, MIT).
+ */
+@layer components {
+  .tc-3d {
+    transform-style: preserve-3d;
+  }
+
+  .tc-card {
+    @apply absolute inset-0;
+    transform-style: preserve-3d;
+  }
+
+  .tc-front {
+    @apply absolute inset-0 flex flex-col gap-3 border-4 border-px-ink bg-px-panel p-3 sm:gap-4 sm:p-5;
+    transform-style: preserve-3d;
+    box-shadow: 8px 8px 0 0 rgb(var(--px-shadow));
+  }
+
+  .tc-back {
+    @apply absolute inset-0 flex flex-col items-center justify-center gap-4 border-4 border-px-ink bg-px-yellow;
+    transform: translateZ(-2px) rotateY(180deg);
+    background-image: repeating-conic-gradient(rgb(0 0 0 / 0.08) 0 25%, transparent 0 50%);
+    background-size: 16px 16px;
+  }
+
+  .tc-riser-box {
+    --riser: 20px;
+    @apply relative aspect-[4/3] w-full shrink-0 bg-px-bg;
+    transform-style: preserve-3d;
+  }
+
+  .tc-wall {
+    @apply absolute;
+    backface-visibility: hidden;
+  }
+
+  .tc-wall-top,
+  .tc-wall-bottom {
+    @apply left-0 w-full bg-px-line;
+    height: var(--riser);
+  }
+
+  .tc-wall-left,
+  .tc-wall-right {
+    @apply top-0 h-full bg-px-shadow;
+    width: var(--riser);
+  }
+
+  .tc-wall-top { top: 0; transform-origin: top; transform: rotateX(90deg); }
+  .tc-wall-bottom { bottom: 0; transform-origin: bottom; transform: rotateX(-90deg); }
+  .tc-wall-left { left: 0; transform-origin: left; transform: rotateY(-90deg); }
+  .tc-wall-right { right: 0; transform-origin: right; transform: rotateY(90deg); }
+
+  /* Card viewer open: freeze everything behind it so the 3D card has the frame budget to itself */
+  :root.px-modal-open main [class*='animate-px-'] {
+    animation-play-state: paused;
+  }
+
+  :root.px-modal-open .px-trail {
+    display: none;
+  }
+
+  .tc-photo {
+    @apply absolute inset-0 border-4 border-px-ink;
+    transform: translateZ(var(--riser));
+    backface-visibility: hidden;
+  }
+}
