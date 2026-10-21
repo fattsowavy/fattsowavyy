@@ -11,12 +11,12 @@ const TradingCard = ({ item, number }) => (
                 {item.date && <span className="text-right text-px-cyan">{item.date}</span>}
             </div>
 
-            <div className="tc-riser-box">
+            <div className="tc-riser-box aspect-[4/3]">
                 <span className="tc-wall tc-wall-top" />
                 <span className="tc-wall tc-wall-bottom" />
                 <span className="tc-wall tc-wall-left" />
                 <span className="tc-wall tc-wall-right" />
-                <div className="tc-photo px-photo">
+                <div className="tc-photo">
                     <img src={item.src} alt={item.title || 'Documentation photo'} className="h-full w-full object-cover" decoding="async" />
                 </div>
             </div>
@@ -27,7 +27,7 @@ const TradingCard = ({ item, number }) => (
             >
                 {item.title || 'Documentation'}
             </h3>
-            {item.description && <p className="line-clamp-3 text-base leading-snug text-px-muted sm:line-clamp-4 sm:text-lg">{item.description}</p>}
+            {item.description && <p className="text-base leading-snug text-px-muted sm:text-lg">{item.description}</p>}
 
             <div className="mt-auto flex items-center justify-between gap-3 border-t-4 border-px-line pt-3" aria-hidden="true">
                 <span className="flex items-center gap-2 font-pixel text-[8px] uppercase text-px-muted sm:text-[10px]">

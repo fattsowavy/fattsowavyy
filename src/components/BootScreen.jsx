@@ -29,7 +29,7 @@ const BootScreen = () => {
 
     if (!show) return null;
     return (
-        <div className="pointer-events-none fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-px-bg" aria-hidden="true">
+        <div data-boot className="pointer-events-none fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-px-bg" aria-hidden="true">
             <p className="font-pixel text-sm uppercase text-px-yellow">Loading...</p>
             <div className="h-4 w-48 border-4 border-px-ink p-0.5">
                 <div className="px-segments h-full animate-px-load" />

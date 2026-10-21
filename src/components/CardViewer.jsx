@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { CLOSE_MS, OPEN_MS, SWAP_MS, closePose, fade, flipbook, inPose, openPose, outPose, setPose } from '../lib/cardMotion';
-import { hasFinePointer, prefersReducedMotion } from '../lib/motion';
-import { getSetting } from '../lib/settings';
+import { useHoverTilt } from '../hooks/useHoverTilt';
 import { shotNo } from '../data/gallery';
 import TradingCard from './pixel/TradingCard';
 
@@ -16,6 +15,7 @@ const CardViewer = ({ items, startIndex, onClose }) => {
     const activeRef = useRef(0);
     const backdropRef = useRef(null);
     const closeRef = useRef(null);
+    const stageRef = useRef(null);
     // per slot: outer element takes the fly/spin motion, inner element takes the mouse tilt
     const motionEls = useRef([]);
     const tiltEls = useRef([]);
@@ -78,37 +78,8 @@ const CardViewer = ({ items, startIndex, onClose }) => {
         };
     }, [swap, active]);
 
-    // mouse tilt, ±20° with easing toward the pointer, snapped to 2° steps
-    useEffect(() => {
-        if (!hasFinePointer() || prefersReducedMotion() || getSetting('fx') === 'off') return;
-        const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-        const pos = { ...mouse };
-        let frame = 0;
-        let last = '';
-        const onMove = (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        };
-        const tick = () => {
-            frame = requestAnimationFrame(tick);
-            if (busy.current) return;
-            pos.x += (mouse.x - pos.x) * 0.125;
-            pos.y += (mouse.y - pos.y) * 0.125;
-            const ry = Math.round((pos.x / window.innerWidth - 0.5) * 20) * 2;
-            const rx = Math.round((pos.y / window.innerHeight - 0.5) * -20) * 2;
-            const next = `${activeRef.current}:rotateX(${rx}deg) rotateY(${ry}deg)`;
-            if (next === last) return;
-            last = next;
-            const el = tiltEls.current[activeRef.current];
-            if (el) el.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-        };
-        window.addEventListener('mousemove', onMove, { passive: true });
-        frame = requestAnimationFrame(tick);
-        return () => {
-            cancelAnimationFrame(frame);
-            window.removeEventListener('mousemove', onMove);
-        };
-    }, []);
+    // tilt the active card while the pointer is over it (flat otherwise, for a sharp photo)
+    useHoverTilt(stageRef, () => tiltEls.current[activeRef.current], { max: 12, busyRef: busy });
 
     const go = useCallback(
         (dir) => {
@@ -170,10 +141,12 @@ const CardViewer = ({ items, startIndex, onClose }) => {
             </button>
 
             <div
+                ref={stageRef}
                 className="relative"
+                // both slots share one grid cell, so the stage is as tall as the taller card
                 style={{
+                    display: 'grid',
                     width: 'min(450px, 85vw, calc((100vh - 180px) * 0.6923))',
-                    aspectRatio: '450 / 650',
                     perspective: '2000px',
                 }}
                 onClick={(e) => e.stopPropagation()}
@@ -186,7 +159,7 @@ const CardViewer = ({ items, startIndex, onClose }) => {
                             ref={(el) => {
                                 motionEls.current[slot] = el;
                             }}
-                            className={`tc-3d absolute inset-0 will-change-transform ${isActive || swap ? '' : 'invisible'}`}
+                            className={`tc-3d relative will-change-transform [grid-area:1/1] ${isActive || swap ? '' : 'invisible'}`}
                             aria-hidden={isActive ? undefined : true}
                             inert={!isActive}
                         >
@@ -194,7 +167,7 @@ const CardViewer = ({ items, startIndex, onClose }) => {
                                 ref={(el) => {
                                     tiltEls.current[slot] = el;
                                 }}
-                                className="tc-3d absolute inset-0 will-change-transform"
+                                className="tc-3d relative will-change-transform"
                             >
                                 <TradingCard item={items[slots[slot]]} number={shotNo(slots[slot])} />
                             </div>

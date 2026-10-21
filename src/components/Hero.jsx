@@ -1,7 +1,7 @@
 import profilePhoto from "../assets/ftwp.jpeg";
-import { profile } from "../data/profile";
+import { education, profile, skillGroups } from "../data/profile";
 import PixelIcon from "./pixel/PixelIcon";
-import PixelImage from "./pixel/PixelImage";
+import PlayerCard from "./pixel/PlayerCard";
 import StarField from "./pixel/StarField";
 import Typewriter from "./pixel/Typewriter";
 
@@ -17,6 +17,15 @@ const HUD = [
   },
   { tag: "Coins", icon: "coin", color: "text-px-yellow" },
 ];
+
+// Back of the player card: real data only, presented as RPG stats
+const STATS = [
+  { label: "Class", value: education[0]?.degree },
+  { label: "Guild", value: education[0]?.school },
+  { label: "LV", value: `${profile.facts[0]?.value} ${profile.facts[0]?.label}` },
+  { label: "Base", value: profile.location },
+  { label: "Skills", value: skillGroups[1]?.items.join(" · ") },
+].filter((s) => s.value);
 
 const scrollTo = (e, id) => {
   e.preventDefault();
@@ -37,13 +46,17 @@ const Hero = () => (
           <p className="mb-4 text-center font-pixel text-[10px] uppercase text-px-yellow">
             Player 1
           </p>
-          <div className="px-card edge-ink p-2">
-            <PixelImage
-              src={profilePhoto}
-              alt={`Portrait of ${profile.name}`}
-              className="aspect-[4/5] w-full"
-            />
-          </div>
+          <PlayerCard
+            src={profilePhoto}
+            alt={`Portrait of ${profile.name}`}
+            stats={STATS}
+          />
+          <p
+            className="mt-4 animate-px-breathe text-center font-pixel text-[8px] uppercase text-px-muted"
+            aria-hidden="true"
+          >
+            Click card to flip
+          </p>
           <p className="mt-6 flex items-center justify-center gap-2 text-px-muted">
             <PixelIcon name="pin" className="h-4 w-3 text-px-red" />
             {profile.location}

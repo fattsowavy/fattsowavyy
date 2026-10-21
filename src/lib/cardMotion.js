@@ -9,6 +9,8 @@ const S = 1.70158;
 export const OPEN_MS = 1900;
 export const SWAP_MS = 900;
 export const CLOSE_MS = 450;
+export const ENTER_MS = 1200;
+export const FLIP_MS = 700;
 
 const ease = {
     outQuad: (t) => 1 - (1 - t) * (1 - t),
@@ -68,6 +70,15 @@ export const inPose = (dir, offX) => (t) => {
 };
 
 export const closePose = (toY) => (t) => ({ y: toY * ease.inBack(phase(t, 0, CLOSE_MS)) });
+
+// Hero player card: swings in from its back side, dropping and tipping into place (back ease)
+export const enterPose = () => (t) => {
+    const k = ease.outBack(phase(t, 0, ENTER_MS));
+    return { y: 40 * (1 - k), rx: 25 * (1 - k), ry: -180 * (1 - k) };
+};
+
+// Half turn between two rotateY angles
+export const spinPose = (from, to) => (t) => ({ ry: from + (to - from) * ease.inOutSine(phase(t, 0, FLIP_MS)) });
 
 // Backdrop fade in 4 steps
 export const fade = (el, from, to, duration = 300) => {

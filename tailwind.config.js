@@ -51,6 +51,11 @@ export default {
         },
         'px-rainbow': { from: { filter: 'hue-rotate(0deg)' }, to: { filter: 'hue-rotate(360deg)' } },
         'px-load': { from: { width: '0%' }, to: { width: '100%' } },
+        // slow "breathing" hint: dims a little, then glows yellow
+        'px-breathe': {
+          '0%, 100%': { opacity: '0.6', color: 'rgb(var(--px-muted))' },
+          '50%': { opacity: '1', color: 'rgb(var(--px-yellow))' },
+        },
       },
       animation: {
         'px-blink': 'px-blink 1s steps(2, jump-none) infinite',
@@ -60,6 +65,7 @@ export default {
         'px-drop': 'px-drop 0.4s steps(4) both',
         'px-rainbow': 'px-rainbow 1s steps(8) infinite',
         'px-load': 'px-load 0.7s steps(6) both',
+        'px-breathe': 'px-breathe 2.4s steps(4, jump-none) infinite',
       },
     },
   },
