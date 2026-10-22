@@ -287,7 +287,7 @@
   }
 }
 
-/* Sakura theme extras: pastel rainbow HP bar, rainbow mouse trail, petal-coloured stars, 2-frame cat */
+/* Sakura theme extras (pastel rainbow HP bar, rainbow mouse trail, petal-coloured stars) and 2-frame sprites */
 @layer components {
   :root[data-theme='sakura'] .px-segments {
     background-image: repeating-linear-gradient(
@@ -313,21 +313,41 @@
   :root[data-theme='sakura'] .px-star:nth-child(4n) { background: #f7b6cf; }
 
   /* two sprite frames, swapped every 0.2s */
-  @keyframes px-cat {
+  @keyframes px-sprite {
     0%, 49.9% { visibility: visible; }
     50%, 100% { visibility: hidden; }
   }
 
-  .cat-frame-a { animation: px-cat 0.4s infinite; }
-  .cat-frame-b { animation: px-cat 0.4s -0.2s infinite; }
+  .sprite-frame-a { animation: px-sprite 0.4s infinite; }
+  .sprite-frame-b { animation: px-sprite 0.4s -0.2s infinite; }
 
   @media (prefers-reduced-motion: reduce) {
-    .cat-frame-a { animation: none !important; }
-    .cat-frame-b { display: none; }
+    .sprite-frame-a { animation: none !important; }
+    .sprite-frame-b { display: none; }
   }
 
-  :root.px-modal-open .cat-frame-a,
-  :root.px-modal-open .cat-frame-b {
+  /* UFO tractor beam: off while flying, flickers on while it hovers mid-flight (40-60% of the 4s flight) */
+  @keyframes px-ufo-beam {
+    0%, 38% { opacity: 0; }
+    40% { opacity: 0.45; }
+    45% { opacity: 0.25; }
+    50% { opacity: 0.45; }
+    55% { opacity: 0.25; }
+    60% { opacity: 0.45; }
+    62%, 100% { opacity: 0; }
+  }
+
+  .ufo-beam {
+    opacity: 0.35;
+  }
+
+  .ufo-beam-flight {
+    opacity: 0;
+    animation: px-ufo-beam 4s steps(1, end) both;
+  }
+
+  :root.px-modal-open .sprite-frame-a,
+  :root.px-modal-open .sprite-frame-b {
     animation-play-state: paused;
   }
 }

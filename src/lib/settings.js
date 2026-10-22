@@ -44,4 +44,14 @@ const subscribe = (listener) => {
     return () => listeners.delete(listener);
 };
 
+// Calls fn(value) whenever `key` changes (not on subscribe). Returns an unsubscribe function.
+export const onSettingChange = (key, fn) => {
+    let last = cache[key];
+    return subscribe(() => {
+        if (cache[key] === last) return;
+        last = cache[key];
+        fn(last);
+    });
+};
+
 export const useSetting = (key) => useSyncExternalStore(subscribe, () => cache[key]);

@@ -5,6 +5,7 @@ import { prefersReducedMotion } from '../lib/motion';
 import SectionHeading from './pixel/SectionHeading';
 import PixelIcon from './pixel/PixelIcon';
 import PixelCat from './pixel/PixelCat';
+import PixelUfo from './pixel/PixelUfo';
 import { useSetting } from '../lib/settings';
 
 // Controller buttons, in the order: email, then profile.links
@@ -78,7 +79,7 @@ const Contact = () => {
             <footer className="mt-20 border-t-4 border-px-line">
                 <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-3">
-                        {theme === 'sakura' && <PixelCat trail={false} className="h-auto w-10" />}
+                        {theme === 'sakura' ? <PixelCat trail={false} className="h-auto w-10" /> : <PixelUfo className="h-auto w-10" />}
                         <p className="font-pixel text-[10px] uppercase leading-relaxed text-px-muted">
                             © {new Date().getFullYear()} {profile.name}
                         </p>

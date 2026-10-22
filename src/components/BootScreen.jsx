@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { prefersReducedMotion } from '../lib/motion';
 import { useSetting } from '../lib/settings';
 import PixelCat from './pixel/PixelCat';
+import PixelUfo from './pixel/PixelUfo';
 
 const KEY = 'px-booted';
 
@@ -33,7 +34,7 @@ const BootScreen = () => {
     if (!show) return null;
     return (
         <div data-boot className="pointer-events-none fixed inset-0 z-[100] flex flex-col items-center justify-center gap-6 bg-px-bg" aria-hidden="true">
-            {theme === 'sakura' && <PixelCat className="h-auto w-48" />}
+            {theme === 'sakura' ? <PixelCat className="h-auto w-48" /> : <PixelUfo beam className="h-auto w-24" />}
             <p className="font-pixel text-sm uppercase text-px-yellow">Loading...</p>
             <div className="h-4 w-48 border-4 border-px-ink p-0.5">
                 <div className="px-segments h-full animate-px-load" />

@@ -1,6 +1,6 @@
 // Original pixel-art "sakura mochi cat" for the Sakura theme: a white cat whose body is a pink
 // mochi with petal sprinkles, flying on a pastel rainbow. Nyan-style homage, not the Nyan Cat sprite.
-// Two frames (legs + tail) swap with a CSS steps() animation (.cat-frame-a / .cat-frame-b).
+// Two frames (legs + tail) swap with a CSS steps() animation (.sprite-frame-a / .sprite-frame-b).
 
 const W = 25; // cat width in sprite pixels
 const H = 13;
@@ -100,11 +100,11 @@ const PixelCat = ({ trail = true, className = '' }) => {
             shapeRendering="crispEdges"
             aria-hidden="true"
         >
-            <g className="cat-frame-a">
+            <g className="sprite-frame-a">
                 {trail && <Rects rects={TRAIL_A} />}
                 <Rects rects={FRAME_A} />
             </g>
-            <g className="cat-frame-b">
+            <g className="sprite-frame-b">
                 {trail && <Rects rects={TRAIL_B} />}
                 <Rects rects={FRAME_B} />
             </g>
