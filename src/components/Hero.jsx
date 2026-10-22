@@ -2,6 +2,7 @@ import profilePhoto from "../assets/ftwp.jpeg";
 import { education, profile, skillGroups } from "../data/profile";
 import PixelIcon from "./pixel/PixelIcon";
 import PlayerCard from "./pixel/PlayerCard";
+import SakuraCat from "./SakuraCat";
 import StarField from "./pixel/StarField";
 import Typewriter from "./pixel/Typewriter";
 
@@ -38,6 +39,7 @@ const Hero = () => (
     className="relative scroll-mt-20 overflow-hidden pt-[70px]"
   >
     <StarField />
+    <SakuraCat />
 
     <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-12 sm:px-6 md:pt-20 lg:px-8">
       <div className="grid items-center gap-12 md:grid-cols-[auto_1fr]">

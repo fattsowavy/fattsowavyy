@@ -24,22 +24,26 @@
     color-scheme: dark;
   }
 
-  /* Light "Gameboy" theme: four greens; every accent collapses to the darkest shade. */
-  :root[data-theme='gb'] {
-    --px-bg: 155 188 15;
-    --px-panel: 180 204 90;
-    --px-ink: 15 56 15;
-    --px-muted: 30 74 30;
-    --px-line: 15 56 15;
-    --px-shadow: 48 98 48;
-    --px-yellow: 15 56 15;
-    --px-red: 48 98 48;
-    --px-green: 15 56 15;
-    --px-cyan: 15 56 15;
-    --px-purple: 48 98 48;
-    --px-orange: 15 56 15;
-    --px-on-accent: 155 188 15;
-    --px-focus: 15 56 15;
+  /*
+   * Light "Sakura" theme: blush background (not pure white), plum text, muted candy accents.
+   * All text pairs pass WCAG AA (>= 4.5:1) on bg and panel; line passes 3:1 for borders.
+   * The accent token names keep their CRT roles: "yellow" is the main accent (pink here).
+   */
+  :root[data-theme='sakura'] {
+    --px-bg: 242 225 233; /* #F2E1E9 */
+    --px-panel: 250 241 245; /* #FAF1F5 */
+    --px-ink: 63 31 51; /* #3F1F33 */
+    --px-muted: 116 71 95; /* #74475F */
+    --px-line: 162 106 134; /* #A26A86 */
+    --px-shadow: 224 189 205; /* #E0BDCD */
+    --px-yellow: 176 42 104; /* #B02A68 pink */
+    --px-red: 233 121 156; /* #E9799C rose, decoration only */
+    --px-green: 37 106 79; /* #256A4F mint */
+    --px-cyan: 59 99 168; /* #3B63A8 periwinkle */
+    --px-purple: 165 133 208; /* #A585D0 lilac, decoration only */
+    --px-orange: 152 69 36; /* #984524 terracotta */
+    --px-on-accent: 255 246 250; /* #FFF6FA */
+    --px-focus: 176 42 104;
     color-scheme: light;
   }
 
@@ -156,9 +160,6 @@
     background-size: 3px 3px;
   }
 
-  :root[data-theme='gb'] .px-photo img {
-    filter: grayscale(1) sepia(1) hue-rotate(40deg) saturate(1.8) contrast(1.05) brightness(0.85);
-  }
 
   .px-pixelated {
     image-rendering: pixelated;
@@ -177,8 +178,9 @@
       radial-gradient(ellipse at center, transparent 65%, rgb(0 0 0 / 0.3) 100%);
   }
 
-  :root[data-theme='gb'] .px-crt {
-    opacity: 0.4;
+  /* dark scanlines read as dirt on a light background: keep them faint */
+  :root[data-theme='sakura'] .px-crt {
+    opacity: 0.3;
   }
 
   :root[data-fx='off'] .px-fx {
@@ -282,5 +284,50 @@
   .pc-back {
     @apply absolute inset-0 bg-px-panel;
     transform: translateZ(-2px) rotateY(180deg);
+  }
+}
+
+/* Sakura theme extras: pastel rainbow HP bar, rainbow mouse trail, petal-coloured stars, 2-frame cat */
+@layer components {
+  :root[data-theme='sakura'] .px-segments {
+    background-image: repeating-linear-gradient(
+      90deg,
+      #f28aa0 0 10px, transparent 10px 12px,
+      #f6b48a 12px 22px, transparent 22px 24px,
+      #f2d98a 24px 34px, transparent 34px 36px,
+      #9fd8a8 36px 46px, transparent 46px 48px,
+      #8fbdea 48px 58px, transparent 58px 60px,
+      #b9a2e3 60px 70px, transparent 70px 72px
+    );
+  }
+
+  :root[data-theme='sakura'] .px-trail span:nth-child(6n + 1) { background: #f28aa0; }
+  :root[data-theme='sakura'] .px-trail span:nth-child(6n + 2) { background: #f6b48a; }
+  :root[data-theme='sakura'] .px-trail span:nth-child(6n + 3) { background: #f2d98a; }
+  :root[data-theme='sakura'] .px-trail span:nth-child(6n + 4) { background: #9fd8a8; }
+  :root[data-theme='sakura'] .px-trail span:nth-child(6n + 5) { background: #8fbdea; }
+  :root[data-theme='sakura'] .px-trail span:nth-child(6n) { background: #b9a2e3; }
+
+  :root[data-theme='sakura'] .px-star { background: #e9799c; }
+  :root[data-theme='sakura'] .px-star:nth-child(3n) { background: #b9a2e3; }
+  :root[data-theme='sakura'] .px-star:nth-child(4n) { background: #f7b6cf; }
+
+  /* two sprite frames, swapped every 0.2s */
+  @keyframes px-cat {
+    0%, 49.9% { visibility: visible; }
+    50%, 100% { visibility: hidden; }
+  }
+
+  .cat-frame-a { animation: px-cat 0.4s infinite; }
+  .cat-frame-b { animation: px-cat 0.4s -0.2s infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cat-frame-a { animation: none !important; }
+    .cat-frame-b { display: none; }
+  }
+
+  :root.px-modal-open .cat-frame-a,
+  :root.px-modal-open .cat-frame-b {
+    animation-play-state: paused;
   }
 }

@@ -2,11 +2,13 @@ import { useSyncExternalStore } from 'react';
 
 // User options persisted in localStorage as `px-<key>`. index.html applies theme/fx before first paint.
 const DEFAULTS = { theme: 'crt', fx: 'on', sound: 'off' };
-const THEME_COLOR = { crt: '#0f0f1b', gb: '#9bbc0f' };
+const THEME_COLOR = { crt: '#0f0f1b', sakura: '#F2E1E9' };
 
 const read = (key) => {
     try {
-        return localStorage.getItem(`px-${key}`) ?? DEFAULTS[key];
+        const value = localStorage.getItem(`px-${key}`) ?? DEFAULTS[key];
+        // the old Gameboy theme was replaced by Sakura
+        return key === 'theme' && value === 'gb' ? 'sakura' : value;
     } catch {
         return DEFAULTS[key];
     }
@@ -17,7 +19,7 @@ const listeners = new Set();
 
 const apply = () => {
     const root = document.documentElement;
-    if (cache.theme === 'gb') root.dataset.theme = 'gb';
+    if (cache.theme === 'sakura') root.dataset.theme = 'sakura';
     else delete root.dataset.theme;
     if (cache.fx === 'off') root.dataset.fx = 'off';
     else delete root.dataset.fx;

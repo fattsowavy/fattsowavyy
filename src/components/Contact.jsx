@@ -4,6 +4,8 @@ import { useInView } from '../hooks/useInView';
 import { prefersReducedMotion } from '../lib/motion';
 import SectionHeading from './pixel/SectionHeading';
 import PixelIcon from './pixel/PixelIcon';
+import PixelCat from './pixel/PixelCat';
+import { useSetting } from '../lib/settings';
 
 // Controller buttons, in the order: email, then profile.links
 const KEYS = [
@@ -15,6 +17,7 @@ const KEYS = [
 
 const Contact = () => {
     const [ref, inView] = useInView(0.3);
+    const theme = useSetting('theme');
     const [count, setCount] = useState(9);
     const buttons = [{ name: 'Email', url: `mailto:${profile.email}` }, ...profile.links];
 
@@ -74,9 +77,12 @@ const Contact = () => {
 
             <footer className="mt-20 border-t-4 border-px-line">
                 <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-6 sm:px-6 lg:px-8">
-                    <p className="font-pixel text-[10px] uppercase leading-relaxed text-px-muted">
-                        © {new Date().getFullYear()} {profile.name}
-                    </p>
+                    <div className="flex items-center gap-3">
+                        {theme === 'sakura' && <PixelCat trail={false} className="h-auto w-10" />}
+                        <p className="font-pixel text-[10px] uppercase leading-relaxed text-px-muted">
+                            © {new Date().getFullYear()} {profile.name}
+                        </p>
+                    </div>
                     <a href="#home" className="flex min-h-[44px] items-center gap-2 font-pixel text-[10px] uppercase hover:text-px-yellow">
                         <PixelIcon name="down" className="h-2 w-3 rotate-180" />
                         Back to title

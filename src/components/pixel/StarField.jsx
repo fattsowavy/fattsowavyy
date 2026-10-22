@@ -18,7 +18,7 @@ const StarField = () => (
         {STARS.map((star, i) => (
             <span
                 key={i}
-                className={`absolute animate-px-twinkle ${star.color}`}
+                className={`px-star absolute animate-px-twinkle ${star.color}`}
                 style={{
                     left: `${star.left}%`,
                     top: `${star.top}%`,

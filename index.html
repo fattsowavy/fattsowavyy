@@ -17,7 +17,11 @@
   <script>
     try {
       var d = document.documentElement;
-      if (localStorage.getItem('px-theme') === 'gb') d.dataset.theme = 'gb';
+      var t = localStorage.getItem('px-theme');
+      if (t === 'sakura' || t === 'gb') {
+        d.dataset.theme = 'sakura';
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F2E1E9');
+      }
       if (localStorage.getItem('px-fx') === 'off') d.dataset.fx = 'off';
     } catch (e) { }
   </script>

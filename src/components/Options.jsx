@@ -13,11 +13,11 @@ const Options = () => {
             <button
                 type="button"
                 className={toggleClass}
-                onClick={() => setSetting('theme', theme === 'gb' ? 'crt' : 'gb')}
-                aria-label={`Theme: ${theme === 'gb' ? 'Gameboy' : 'CRT'}. Switch theme`}
+                onClick={() => setSetting('theme', theme === 'sakura' ? 'crt' : 'sakura')}
+                aria-label={`Theme: ${theme === 'sakura' ? 'Sakura' : 'CRT'}. Switch theme`}
             >
                 <span>Theme</span>
-                <span className="text-px-yellow">{theme === 'gb' ? 'GB' : 'CRT'}</span>
+                <span className="text-px-yellow">{theme === 'sakura' ? 'Sakura' : 'CRT'}</span>
             </button>
             <button
                 type="button"
