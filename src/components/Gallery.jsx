@@ -36,16 +36,24 @@ const Gallery = () => {
                 <SectionHeading stage={5} label="Gallery" title="Moments & documentation" kicker="Screenshots" />
 
                 <Reveal>
-                    <ul className="columns-1 gap-8 sm:columns-2 lg:columns-3">
+                    {/* every card the same shape: photos cropped to 4:3, aimed with each photo's `position` */}
+                    <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {gallery.map((item, i) => (
-                            <li key={item.file} className="px-card mb-8 break-inside-avoid p-2">
+                            <li key={item.file} className="px-card flex flex-col p-2">
                                 <button
                                     type="button"
                                     onClick={(e) => openAt(e, i)}
-                                    className="px-photo block w-full border-4 border-px-line"
+                                    className="px-photo block aspect-[4/3] w-full border-4 border-px-line"
                                     aria-label={item.title ? `Open card: ${item.title}` : `Open card ${i + 1}`}
                                 >
-                                    <img src={item.src} alt={item.title || 'Documentation photo'} loading="lazy" decoding="async" className="block w-full" />
+                                    <img
+                                        src={item.src}
+                                        alt={item.title || 'Documentation photo'}
+                                        loading="lazy"
+                                        decoding="async"
+                                        className="h-full w-full object-cover"
+                                        style={{ objectPosition: item.position }}
+                                    />
                                 </button>
                                 <div className="px-2 pb-2 pt-3">
                                     <p className="font-pixel text-[10px] uppercase leading-relaxed text-px-muted">

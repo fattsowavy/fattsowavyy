@@ -17,7 +17,13 @@ const TradingCard = ({ item, number }) => (
                 <span className="tc-wall tc-wall-left" />
                 <span className="tc-wall tc-wall-right" />
                 <div className="tc-photo">
-                    <img src={item.src} alt={item.title || 'Documentation photo'} className="h-full w-full object-cover" decoding="async" />
+                    <img
+                        src={item.src}
+                        alt={item.title || 'Documentation photo'}
+                        className="h-full w-full object-cover"
+                        style={{ objectPosition: item.position }}
+                        decoding="async"
+                    />
                 </div>
             </div>
 
