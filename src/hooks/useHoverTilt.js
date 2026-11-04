@@ -21,9 +21,15 @@ export const useHoverTilt = (areaRef, resolveTarget, { max = 12, busyRef } = {})
         let frame = 0;
         let lastEl = null;
         let last = '';
+        // The loop only runs while there is something to do: a mouse move starts it, and it stops
+        // once the card is flat again with the pointer off it (no per-frame work on an idle page).
+        const start = () => {
+            if (!frame) frame = requestAnimationFrame(tick);
+        };
         const onMove = (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
+            start();
         };
         const tick = () => {
             frame = requestAnimationFrame(tick);
@@ -38,6 +44,13 @@ export const useHoverTilt = (areaRef, resolveTarget, { max = 12, busyRef } = {})
             const rx = Math.round(angle.rx / 2) * 2;
             const ry = Math.round(angle.ry / 2) * 2;
             const transform = rx === 0 && ry === 0 ? '' : `rotateX(${rx}deg) rotateY(${ry}deg)`;
+            // settled on the target (pointer resting on the card, or flat again): stop until the next move
+            if (Math.abs(target.rx - angle.rx) < 0.5 && Math.abs(target.ry - angle.ry) < 0.5) {
+                cancelAnimationFrame(frame);
+                frame = 0;
+                angle.rx = target.rx;
+                angle.ry = target.ry;
+            }
             const el = resolveRef.current?.();
             if (!el || (el === lastEl && transform === last)) return;
             lastEl = el;
@@ -45,7 +58,6 @@ export const useHoverTilt = (areaRef, resolveTarget, { max = 12, busyRef } = {})
             el.style.transform = transform;
         };
         window.addEventListener('mousemove', onMove, { passive: true });
-        frame = requestAnimationFrame(tick);
         return () => {
             cancelAnimationFrame(frame);
             window.removeEventListener('mousemove', onMove);

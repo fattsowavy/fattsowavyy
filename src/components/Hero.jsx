@@ -54,7 +54,7 @@ const Hero = () => (
             stats={STATS}
           />
           <p
-            className="mt-4 animate-px-breathe text-center font-pixel text-[8px] uppercase text-px-muted"
+            className="px-breathe mt-4 text-center font-pixel text-[8px] uppercase text-px-muted"
             aria-hidden="true"
           >
             Click card to flip

@@ -1,5 +1,6 @@
 // Original pixel-art UFO for the CRT theme: glass dome, grey saucer, a row of lights that chase
 // between two frames (.sprite-frame-a / .sprite-frame-b), and an optional tractor beam below.
+import SpriteStack from './SpriteStack';
 
 const W = 21;
 const BEAM_H = 9;
@@ -41,24 +42,30 @@ const Rects = ({ rects }) =>
 // beam: false = no beam, 'flight' = beam that only shows while the UFO hovers mid-flight (CSS)
 const PixelUfo = ({ beam = false, className = '' }) => {
     const h = beam ? 8 + BEAM_H : 8;
-    return (
-        <svg viewBox={`-1 0 ${W + 2} ${h}`} className={className} shapeRendering="crispEdges" aria-hidden="true">
-            {beam && (
-                <g className={`ufo-beam ${beam === 'flight' ? 'ufo-beam-flight' : ''}`} fill="#FFCD75">
+    const frame = (shift) => (
+        <>
+            <Rects rects={BODY} />
+            <Rects rects={lights(shift)} />
+        </>
+    );
+    const layers = [
+        { key: 'a', className: 'sprite-frame-a', children: frame(0) },
+        { key: 'b', className: 'sprite-frame-b', children: frame(1) },
+    ];
+    if (beam) {
+        layers.push({
+            key: 'beam',
+            className: `ufo-beam ${beam === 'flight' ? 'ufo-beam-flight' : ''}`,
+            children: (
+                <g fill="#FFCD75">
                     {BEAM.map((r) => (
                         <rect key={r.y} x={r.x} y={r.y} width={r.w} height="1" />
                     ))}
                 </g>
-            )}
-            <Rects rects={BODY} />
-            <g className="sprite-frame-a">
-                <Rects rects={lights(0)} />
-            </g>
-            <g className="sprite-frame-b">
-                <Rects rects={lights(1)} />
-            </g>
-        </svg>
-    );
+            ),
+        });
+    }
+    return <SpriteStack viewBox={`-1 0 ${W + 2} ${h}`} className={className} layers={layers} />;
 };
 
 export default PixelUfo;

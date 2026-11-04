@@ -1,6 +1,7 @@
 // Original pixel-art "sakura mochi cat" for the Sakura theme: a white cat whose body is a pink
 // mochi with petal sprinkles, flying on a pastel rainbow. Nyan-style homage, not the Nyan Cat sprite.
-// Two frames (legs + tail) swap with a CSS steps() animation (.sprite-frame-a / .sprite-frame-b).
+// Two frames (legs + tail) swap with a CSS opacity animation (.sprite-frame-a / .sprite-frame-b).
+import SpriteStack from './SpriteStack';
 
 const W = 25; // cat width in sprite pixels
 const H = 13;
@@ -94,21 +95,32 @@ const Rects = ({ rects }) =>
 const PixelCat = ({ trail = true, className = '' }) => {
     const minX = trail ? -TRAIL : 0;
     return (
-        <svg
+        <SpriteStack
             viewBox={`${minX} 0 ${W - minX} ${H + 1}`}
             className={className}
-            shapeRendering="crispEdges"
-            aria-hidden="true"
-        >
-            <g className="sprite-frame-a">
-                {trail && <Rects rects={TRAIL_A} />}
-                <Rects rects={FRAME_A} />
-            </g>
-            <g className="sprite-frame-b">
-                {trail && <Rects rects={TRAIL_B} />}
-                <Rects rects={FRAME_B} />
-            </g>
-        </svg>
+            layers={[
+                {
+                    key: 'a',
+                    className: 'sprite-frame-a',
+                    children: (
+                        <>
+                            {trail && <Rects rects={TRAIL_A} />}
+                            <Rects rects={FRAME_A} />
+                        </>
+                    ),
+                },
+                {
+                    key: 'b',
+                    className: 'sprite-frame-b',
+                    children: (
+                        <>
+                            {trail && <Rects rects={TRAIL_B} />}
+                            <Rects rects={FRAME_B} />
+                        </>
+                    ),
+                },
+            ]}
+        />
     );
 };
 

@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
+import { prefersReducedMotion } from '../lib/motion';
 import { blip } from '../lib/sound';
 import PixelTrail from './pixel/PixelTrail';
 
 const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 
 // Page-wide extras: segmented "HP" scroll bar, CRT scanline overlay and mouse pixel trail (both hidden
-// when FX is off), click sounds (only when SOUND is on) and the Konami code rainbow easter egg.
+// when FX is off), click sounds (only when SOUND is on), the Konami code rainbow easter egg, plus two
+// performance helpers: the shared "breathe" clock and pausing animations in off-screen sections.
 const RetroFX = () => {
-    const [progress, setProgress] = useState(0);
+    // scroll progress in 5% steps (0..20): re-renders only when the bar actually moves
+    const [step, setStep] = useState(0);
 
     useEffect(() => {
         let frame = 0;
         const update = () => {
             frame = 0;
             const max = document.documentElement.scrollHeight - window.innerHeight;
-            setProgress(max > 0 ? window.scrollY / max : 0);
+            setStep(Math.round((max > 0 ? window.scrollY / max : 0) * 20));
         };
         const onScroll = () => {
             if (!frame) frame = requestAnimationFrame(update);
@@ -27,6 +30,38 @@ const RetroFX = () => {
             window.removeEventListener('scroll', onScroll);
             window.removeEventListener('resize', onScroll);
         };
+    }, []);
+
+    // .px-breathe colour steps: <html data-breathe="0..7">, 8 steps per 2.4s cycle (see index.css)
+    useEffect(() => {
+        if (prefersReducedMotion()) return;
+        const root = document.documentElement;
+        let n = 0;
+        const id = setInterval(() => {
+            if (document.hidden) return;
+            n = (n + 1) % 8;
+            root.dataset.breathe = String(n);
+        }, 300);
+        return () => {
+            clearInterval(id);
+            delete root.dataset.breathe;
+        };
+    }, []);
+
+    // pause the CSS animations of sections that are scrolled out of view ([data-offscreen])
+    useEffect(() => {
+        const sections = document.querySelectorAll('main > section');
+        if (!sections.length || typeof IntersectionObserver === 'undefined') return;
+        const observer = new IntersectionObserver(
+            (entries) =>
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) delete entry.target.dataset.offscreen;
+                    else entry.target.dataset.offscreen = '';
+                }),
+            { rootMargin: '200px 0px' }
+        );
+        sections.forEach((s) => observer.observe(s));
+        return () => observer.disconnect();
     }, []);
 
     useEffect(() => {
@@ -63,7 +98,7 @@ const RetroFX = () => {
         <>
             <div className="fixed inset-x-0 top-0 z-[60] h-1.5 bg-px-bg" aria-hidden="true">
                 {/* snapped to 5% steps so the bar moves in chunks */}
-                <div className="px-segments h-full" style={{ width: `${Math.round(progress * 20) * 5}%` }} />
+                <div className="px-segments h-full" style={{ width: `${step * 5}%` }} />
             </div>
             <div className="px-crt px-fx" aria-hidden="true" />
             <PixelTrail />

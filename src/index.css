@@ -312,14 +312,15 @@
   :root[data-theme='sakura'] .px-star:nth-child(3n) { background: #b9a2e3; }
   :root[data-theme='sakura'] .px-star:nth-child(4n) { background: #f7b6cf; }
 
-  /* two sprite frames, swapped every 0.2s */
+  /* two sprite frames (separate <svg> layers, see SpriteStack), swapped every 0.2s.
+     Opacity with discrete keyframes + linear timing runs on the compositor. */
   @keyframes px-sprite {
-    0%, 49.9% { visibility: visible; }
-    50%, 100% { visibility: hidden; }
+    0%, 49.9% { opacity: 1; }
+    50%, 100% { opacity: 0; }
   }
 
-  .sprite-frame-a { animation: px-sprite 0.4s infinite; }
-  .sprite-frame-b { animation: px-sprite 0.4s -0.2s infinite; }
+  .sprite-frame-a { animation: px-sprite 0.4s linear infinite; }
+  .sprite-frame-b { animation: px-sprite 0.4s linear -0.2s infinite; }
 
   @media (prefers-reduced-motion: reduce) {
     .sprite-frame-a { animation: none !important; }
@@ -328,12 +329,12 @@
 
   /* UFO tractor beam: off while flying, flickers on while it hovers mid-flight (40-60% of the 4s flight) */
   @keyframes px-ufo-beam {
-    0%, 38% { opacity: 0; }
-    40% { opacity: 0.45; }
-    45% { opacity: 0.25; }
-    50% { opacity: 0.45; }
-    55% { opacity: 0.25; }
-    60% { opacity: 0.45; }
+    0%, 39.9% { opacity: 0; }
+    40%, 44.9% { opacity: 0.45; }
+    45%, 49.9% { opacity: 0.25; }
+    50%, 54.9% { opacity: 0.45; }
+    55%, 59.9% { opacity: 0.25; }
+    60%, 61.9% { opacity: 0.45; }
     62%, 100% { opacity: 0; }
   }
 
@@ -343,11 +344,83 @@
 
   .ufo-beam-flight {
     opacity: 0;
-    animation: px-ufo-beam 4s steps(1, end) both;
+    animation: px-ufo-beam 4s linear both;
   }
 
   :root.px-modal-open .sprite-frame-a,
   :root.px-modal-open .sprite-frame-b {
     animation-play-state: paused;
+  }
+}
+
+/*
+ * Gallery cards: say "you can open me". The badge breathes all the time (works on touch screens);
+ * on hover / keyboard focus the card lifts, its frame turns the accent colour, the badge fills in
+ * and selection brackets blink at the photo corners.
+ */
+@layer components {
+  .gc-card {
+    transition: transform 0.15s steps(2, end), box-shadow 0.15s steps(2, end);
+  }
+
+  .gc-card:hover,
+  .gc-card:focus-within {
+    --edge: rgb(var(--px-yellow));
+    transform: translate(-2px, -4px);
+    box-shadow:
+      0 -4px 0 0 var(--edge),
+      0 4px 0 0 var(--edge),
+      -4px 0 0 0 var(--edge),
+      4px 0 0 0 var(--edge),
+      12px 12px 0 0 rgb(var(--px-shadow));
+  }
+
+  .gc-card:hover .gc-badge,
+  .gc-card:focus-within .gc-badge {
+    @apply bg-px-yellow;
+    color: rgb(var(--px-on-accent)) !important; /* beats the .px-breathe colour steps */
+  }
+
+  .gc-corner {
+    opacity: 0;
+  }
+
+  .gc-card:hover .gc-corner,
+  .gc-card:focus-within .gc-corner {
+    @apply animate-px-blink;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gc-card:hover .gc-corner,
+    .gc-card:focus-within .gc-corner {
+      animation: none !important;
+      opacity: 1;
+    }
+  }
+
+}
+
+/*
+ * Performance helpers.
+ * 1. "Breathing" text (.px-breathe): muted -> accent -> muted in 8 steps. A shared clock in RetroFX
+ *    sets <html data-breathe="0..7"> about 3 times a second; a CSS colour animation would instead
+ *    recalculate style on every frame. Every step passes WCAG AA (mix of two AA colours).
+ * 2. Sections scrolled out of view get [data-offscreen] (also set in RetroFX): their CSS animations
+ *    pause, so e.g. the footer UFO costs nothing while you read the hero.
+ */
+@layer components {
+  .px-breathe { color: rgb(var(--px-muted)); }
+  :root[data-breathe='1'] .px-breathe,
+  :root[data-breathe='7'] .px-breathe { color: color-mix(in srgb, rgb(var(--px-yellow)) 25%, rgb(var(--px-muted))); }
+  :root[data-breathe='2'] .px-breathe,
+  :root[data-breathe='6'] .px-breathe { color: color-mix(in srgb, rgb(var(--px-yellow)) 50%, rgb(var(--px-muted))); }
+  :root[data-breathe='3'] .px-breathe,
+  :root[data-breathe='5'] .px-breathe { color: color-mix(in srgb, rgb(var(--px-yellow)) 75%, rgb(var(--px-muted))); }
+  :root[data-breathe='4'] .px-breathe { color: rgb(var(--px-yellow)); }
+
+  [data-offscreen] *,
+  [data-offscreen] *::before,
+  [data-offscreen] *::after {
+    animation-play-state: paused !important;
   }
 }

@@ -41,9 +41,11 @@ export default {
         'pixel-lg': '8px 8px 0 0 rgb(var(--px-shadow))',
       },
       keyframes: {
-        'px-blink': { from: { opacity: '1' }, to: { opacity: '0' } },
-        'px-float': { from: { transform: 'translateY(0)' }, to: { transform: 'translateY(-4px)' } },
-        'px-twinkle': { from: { opacity: '1' }, to: { opacity: '0.25' } },
+        // Two-state loops are written as discrete keyframes with linear timing (not steps()), so the
+        // browser can run them on the compositor instead of recalculating style every frame.
+        'px-blink': { '0%, 49.9%': { opacity: '1' }, '50%, 100%': { opacity: '0' } },
+        'px-float': { '0%, 49.9%': { transform: 'translateY(0)' }, '50%, 100%': { transform: 'translateY(-4px)' } },
+        'px-twinkle': { '0%, 49.9%': { opacity: '1' }, '50%, 100%': { opacity: '0.25' } },
         'px-wipe': { from: { clipPath: 'inset(0 100% 0 0)' }, to: { clipPath: 'inset(0 0 0 0)' } },
         'px-drop': {
           from: { transform: 'translateY(-16px)', opacity: '0' },
@@ -51,21 +53,15 @@ export default {
         },
         'px-rainbow': { from: { filter: 'hue-rotate(0deg)' }, to: { filter: 'hue-rotate(360deg)' } },
         'px-load': { from: { width: '0%' }, to: { width: '100%' } },
-        // slow "breathing" hint: dims a little, then glows yellow
-        'px-breathe': {
-          '0%, 100%': { opacity: '0.6', color: 'rgb(var(--px-muted))' },
-          '50%': { opacity: '1', color: 'rgb(var(--px-yellow))' },
-        },
       },
       animation: {
-        'px-blink': 'px-blink 1s steps(2, jump-none) infinite',
-        'px-float': 'px-float 1s steps(2, jump-none) infinite',
-        'px-twinkle': 'px-twinkle 2s steps(2, jump-none) infinite',
+        'px-blink': 'px-blink 1s linear infinite',
+        'px-float': 'px-float 1s linear infinite',
+        'px-twinkle': 'px-twinkle 2s linear infinite',
         'px-wipe': 'px-wipe 0.6s steps(12) both',
         'px-drop': 'px-drop 0.4s steps(4) both',
         'px-rainbow': 'px-rainbow 1s steps(8) infinite',
         'px-load': 'px-load 0.7s steps(6) both',
-        'px-breathe': 'px-breathe 2.4s steps(4, jump-none) infinite',
       },
     },
   },
