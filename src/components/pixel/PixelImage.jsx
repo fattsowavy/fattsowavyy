@@ -7,7 +7,8 @@ const BLOCKS = [32, 20, 12, 7, 4];
 const W = 200; // internal canvas resolution, 4:5
 const H = 250;
 
-const PixelImage = ({ src, alt, className = '' }) => {
+// priority: the page's main image (hero), fetched before everything else
+const PixelImage = ({ src, alt, className = '', priority = false }) => {
     const canvasRef = useRef(null);
     const imgRef = useRef(null);
     const [loaded, setLoaded] = useState(false);
@@ -48,6 +49,8 @@ const PixelImage = ({ src, alt, className = '' }) => {
                 src={src}
                 alt={alt}
                 onLoad={() => setLoaded(true)}
+                fetchPriority={priority ? 'high' : undefined}
+                decoding={priority ? undefined : 'async'}
                 className={`h-full w-full object-cover ${pixelating ? 'opacity-0' : ''}`}
             />
             <canvas

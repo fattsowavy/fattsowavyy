@@ -67,7 +67,7 @@ const PlayerCard = ({ src, alt, stats }) => {
                             <span className="tc-wall tc-wall-left" />
                             <span className="tc-wall tc-wall-right" />
                             <div className="tc-photo">
-                                <PixelImage src={src} alt={alt} className="h-full w-full" />
+                                <PixelImage src={src} alt={alt} className="h-full w-full" priority />
                             </div>
                         </div>
                     </div>

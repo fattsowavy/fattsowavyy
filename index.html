@@ -26,6 +26,12 @@
     } catch (e) { }
   </script>
 
+  <!-- Hero photo: start downloading it alongside the JS instead of only after React renders.
+       No fetchpriority here on purpose: the photo can't show before the JS runs, so it must not
+       take bandwidth from the JS; the <img> itself asks for high priority once it is rendered.
+       Keep this path in sync with the import in src/components/Hero.jsx (Vite rewrites it to the hashed file). -->
+  <link rel="preload" as="image" href="/src/assets/ftww.jpg" />
+
   <!-- Pixel fonts, loaded without blocking render -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
