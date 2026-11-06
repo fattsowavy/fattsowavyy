@@ -1,4 +1,4 @@
-import profilePhoto from "../assets/ftwp.jpeg";
+import profilePhoto from "../assets/ftww.jpg";
 import { education, profile, skillGroups } from "../data/profile";
 import PixelIcon from "./pixel/PixelIcon";
 import PlayerCard from "./pixel/PlayerCard";
@@ -23,7 +23,10 @@ const HUD = [
 const STATS = [
   { label: "Class", value: education[0]?.degree },
   { label: "Guild", value: education[0]?.school },
-  { label: "LV", value: `${profile.facts[0]?.value} ${profile.facts[0]?.label}` },
+  {
+    label: "LV",
+    value: `${profile.facts[0]?.value} ${profile.facts[0]?.label}`,
+  },
   { label: "Base", value: profile.location },
   { label: "Skills", value: skillGroups[1]?.items.join(" · ") },
 ].filter((s) => s.value);
