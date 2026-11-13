@@ -16,6 +16,7 @@ const CardViewer = ({ items, startIndex, onClose }) => {
     const backdropRef = useRef(null);
     const closeRef = useRef(null);
     const stageRef = useRef(null);
+    const fitRef = useRef(null);
     // per slot: outer element takes the fly/spin motion, inner element takes the mouse tilt
     const motionEls = useRef([]);
     const tiltEls = useRef([]);
@@ -117,12 +118,36 @@ const CardViewer = ({ items, startIndex, onClose }) => {
         return () => document.removeEventListener('keydown', onKey);
     }, [requestClose, go]);
 
+    // Every card is as tall as the tallest one (see the hidden sizers below), so the stage height never
+    // changes and Prev/Next stay put. If that height doesn't fit the screen, shrink the whole stage
+    // (scale + matching negative margin, so the controls move up with it) instead of scrolling.
+    useLayoutEffect(() => {
+        const wrap = fitRef.current;
+        const stage = stageRef.current;
+        if (!wrap || !stage) return;
+        const RESERVED = 80 + 24 + 56 + 32; // top padding + gap + controls row + bottom padding
+        const fit = () => {
+            const h = stage.offsetHeight;
+            const s = Math.min(1, (window.innerHeight - RESERVED) / h);
+            wrap.style.transform = s < 1 ? `scale(${s})` : '';
+            wrap.style.marginBottom = s < 1 ? `${-h * (1 - s)}px` : '';
+        };
+        fit();
+        const observer = new ResizeObserver(fit); // e.g. when the pixel fonts finish loading
+        observer.observe(stage);
+        window.addEventListener('resize', fit);
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('resize', fit);
+        };
+    }, []);
+
     const current = slots[active];
 
     return (
         <div
             ref={backdropRef}
-            className="fixed inset-0 z-[90] flex items-center justify-center overflow-hidden bg-black/85"
+            className="fixed inset-0 z-[90] overflow-y-auto bg-black/85"
             role="dialog"
             aria-modal="true"
             aria-label="Photo card viewer"
@@ -135,20 +160,23 @@ const CardViewer = ({ items, startIndex, onClose }) => {
                     e.stopPropagation();
                     requestClose();
                 }}
-                className="px-btn px-btn-ghost absolute right-4 top-4 z-10 text-[10px]"
+                className="px-btn px-btn-ghost fixed right-4 top-4 z-10 text-[10px]"
             >
                 Close
             </button>
 
+            {/* Card and controls stack in one column, so the card can never cover the controls.
+                overflow-clip hides cards flying in from off-screen without growing a scroll area. */}
+            <div className="flex min-h-full w-full flex-col items-center justify-center gap-6 overflow-clip px-4 pb-8 pt-20">
+
+            <div ref={fitRef} className="origin-top">
             <div
                 ref={stageRef}
-                className="relative"
-                // both slots share one grid cell, so the stage is as tall as the taller card
-                style={{
-                    display: 'grid',
-                    width: 'min(450px, 85vw, calc((100vh - 180px) * 0.6923))',
-                    perspective: '2000px',
-                }}
+                className="tc-stage relative"
+                // every card (the two live slots + one hidden sizer per photo) shares one grid cell,
+                // so the stage is as tall as the tallest card in the whole gallery
+                // size: .tc-stage in index.css (portrait on phones, landscape from 900px)
+                style={{ display: 'grid', perspective: '2000px' }}
                 onClick={(e) => e.stopPropagation()}
             >
                 {[0, 1].map((slot) => {
@@ -159,7 +187,7 @@ const CardViewer = ({ items, startIndex, onClose }) => {
                             ref={(el) => {
                                 motionEls.current[slot] = el;
                             }}
-                            className={`tc-3d relative will-change-transform [grid-area:1/1] ${isActive || swap ? '' : 'invisible'}`}
+                            className={`tc-3d pointer-events-none relative will-change-transform [grid-area:1/1] ${isActive || swap ? '' : 'invisible'}`}
                             aria-hidden={isActive ? undefined : true}
                             inert={!isActive}
                         >
@@ -167,16 +195,25 @@ const CardViewer = ({ items, startIndex, onClose }) => {
                                 ref={(el) => {
                                     tiltEls.current[slot] = el;
                                 }}
-                                className="tc-3d relative will-change-transform"
+                                // wrappers ignore the pointer (see .tc-front in index.css)
+                                className="tc-3d pointer-events-none relative h-full will-change-transform"
                             >
                                 <TradingCard item={items[slots[slot]]} number={shotNo(slots[slot])} />
                             </div>
                         </div>
                     );
                 })}
+
+                {/* invisible sizers: one per photo, only there to make the grid cell as tall as the tallest card */}
+                {items.map((item, i) => (
+                    <div key={item.file} className="invisible pointer-events-none [grid-area:1/1]" aria-hidden="true" inert>
+                        <TradingCard item={item} number={shotNo(i)} sizer />
+                    </div>
+                ))}
+            </div>
             </div>
 
-            <div className="absolute inset-x-0 bottom-4 z-10 flex items-center justify-center gap-4" onClick={(e) => e.stopPropagation()}>
+            <div className="z-10 flex items-center justify-center gap-4" onClick={(e) => e.stopPropagation()}>
                 {n > 1 && (
                     <button type="button" onClick={() => go(-1)} className="px-btn px-btn-ghost text-[10px]" aria-label="Previous photo">
                         Prev
@@ -190,6 +227,7 @@ const CardViewer = ({ items, startIndex, onClose }) => {
                         Next
                     </button>
                 )}
+            </div>
             </div>
         </div>
     );

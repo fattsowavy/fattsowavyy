@@ -16,7 +16,7 @@ export const profile = {
   ],
   cv: `${import.meta.env.BASE_URL}cv.pdf`,
   facts: [
-    { value: "3.87", label: "GPA so far" },
+    { value: "3.90", label: "GPA so far" },
     { value: "1", label: "IEEE publication" },
     { value: "3", label: "Roles & positions" },
     { value: "4", label: "Certifications" },
@@ -28,7 +28,7 @@ export const education = [
     school: "Muslim University of Indonesia",
     degree: "Bachelor of Information Engineering",
     period: "2023 – Present",
-    note: "GPA 3.87 (current)",
+    note: "GPA 3.90 (current)",
   },
 ];
 

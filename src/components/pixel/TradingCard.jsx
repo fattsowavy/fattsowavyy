@@ -3,15 +3,17 @@
 // original pixel-art implementation. Styles: .tc-* in src/index.css.
 import PixelIcon from './PixelIcon';
 
-const TradingCard = ({ item, number }) => (
-    <div className="tc-card">
+// Portrait on phones; from 900px wide the front turns landscape: photo left, text right (.tc-* areas).
+// sizer: a hidden copy that only measures the card's natural height (see CardViewer)
+const TradingCard = ({ item, number, sizer = false }) => (
+    <div className={`tc-card ${sizer ? 'tc-sizer' : ''}`}>
         <div className="tc-front">
-            <div className="flex items-center justify-between gap-3 font-pixel text-[10px] uppercase leading-relaxed">
+            <div className="tc-head flex items-center justify-between gap-3 font-pixel text-[10px] uppercase leading-relaxed">
                 <span className="text-px-yellow">No. {number}</span>
                 {item.date && <span className="text-right text-px-cyan">{item.date}</span>}
             </div>
 
-            <div className="tc-riser-box aspect-[4/3]">
+            <div className="tc-pic tc-riser-box aspect-[4/3]">
                 <span className="tc-wall tc-wall-top" />
                 <span className="tc-wall tc-wall-bottom" />
                 <span className="tc-wall tc-wall-left" />
@@ -28,14 +30,27 @@ const TradingCard = ({ item, number }) => (
             </div>
 
             <h3
-                className="font-pixel text-[11px] uppercase leading-relaxed sm:text-sm"
+                className="tc-title font-pixel text-[11px] uppercase leading-relaxed sm:text-sm"
                 style={{ textShadow: '2px 2px 0 rgb(var(--px-red))' }}
             >
                 {item.title || 'Documentation'}
             </h3>
-            {item.description && <p className="text-base leading-snug text-px-muted sm:text-lg">{item.description}</p>}
+            {item.description && <p className="tc-desc text-base leading-snug text-px-muted sm:text-lg">{item.description}</p>}
 
-            <div className="mt-auto flex items-center justify-between gap-3 border-t-4 border-px-line pt-3" aria-hidden="true">
+            {item.link && (
+                <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tc-link px-btn px-btn-primary self-start text-[10px]"
+                    aria-label={`${item.linkLabel}: ${item.title || 'documentation'} (opens in a new tab)`}
+                >
+                    <PixelIcon name="cursor" className="h-3 w-2" />
+                    {item.linkLabel}
+                </a>
+            )}
+
+            <div className="tc-foot mt-auto flex items-center justify-between gap-3 border-t-4 border-px-line pt-3" aria-hidden="true">
                 <span className="flex items-center gap-2 font-pixel text-[8px] uppercase text-px-muted sm:text-[10px]">
                     <PixelIcon name="heart" className="h-3 w-3 text-px-red" />
                     Fatwah · Gallery

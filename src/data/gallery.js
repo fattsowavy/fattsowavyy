@@ -3,6 +3,7 @@
 // Photos are shown cropped to 4:3. If the crop cuts off the subject, set `position` to move it:
 // "<x> <y>" in % like CSS object-position, e.g. position: "30% 50%" keeps the left-centre in frame
 // (0% = left / top edge, 100% = right / bottom edge, default "50% 50%").
+// Optional `link` (+ `linkLabel`, default "Open link") adds a button to the opened card, e.g. a reel or post.
 const details = {
   "01-kyutech.jpeg": {
     title: "Exchange at Kyushu Institute of Technology",
@@ -21,6 +22,14 @@ const details = {
     description:
       'As a lab assistant I teach hands-on programming classes and handle IT support, here presenting "Speech Recognition" to students.',
     date: "Jan 2025 - Present",
+  },
+  "04-support.jpg": {
+    title: "NVIDIA DLI Workshop Assistant",
+    description:
+      "Helping participants through the hands-on exercises at an NVIDIA Deep Learning Institute workshop, from setting up their environment to troubleshooting along the way.",
+    date: "Nov 2026",
+    link: "https://www.instagram.com/reel/Dfjf8-XJZUT/",
+    linkLabel: "Watch reel",
   },
 };
 
@@ -46,6 +55,8 @@ export const gallery = Object.entries(modules)
       description = "",
       date = "",
       position = "50% 50%",
+      link = "",
+      linkLabel = "Open link",
     } = details[file] ?? detailsByLowerName[file.toLowerCase()] ?? {};
-    return { src, file, title, description, date, position };
+    return { src, file, title, description, date, position, link, linkLabel };
   });

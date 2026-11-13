@@ -211,15 +211,27 @@
   }
 
   .tc-card {
-    @apply relative;
+    @apply relative h-full;
     transform-style: preserve-3d;
   }
 
-  /* 450:650 is the minimum shape: with aspect-ratio the card still grows taller if the text needs it */
+  /* Fills the viewer's grid cell. The 450:650 minimum shape is the stage's min-height (CardViewer),
+     not aspect-ratio here: aspect-ratio + height:100% stopped the hidden sizer cards from growing
+     with their text, so long text spilled out of the frame. */
+  /* pointer-events: the card's flat, invisible wrappers in CardViewer ignore the pointer and only the
+     card face takes clicks. Otherwise, when the card tilts on hover, the part behind the screen
+     plane (e.g. the "Watch reel" button) was covered by a wrapper and could not be clicked. */
   .tc-front {
-    @apply relative flex aspect-[450/650] w-full flex-col gap-3 border-4 border-px-ink bg-px-panel p-3 sm:gap-4 sm:p-5;
+    pointer-events: auto;
+    @apply relative flex h-full w-full flex-col gap-3 border-4 border-px-ink bg-px-panel p-3 sm:gap-4 sm:p-5;
     transform-style: preserve-3d;
     box-shadow: 8px 8px 0 0 rgb(var(--px-shadow));
+  }
+
+  /* hidden sizer cards keep their natural height, so the grid cell grows to the tallest card */
+  .tc-sizer,
+  .tc-sizer .tc-front {
+    height: auto;
   }
 
   .tc-back {
@@ -422,5 +434,48 @@
   [data-offscreen] *::before,
   [data-offscreen] *::after {
     animation-play-state: paused !important;
+  }
+}
+
+/*
+ * Card viewer size. Phones: a portrait card (450:650 minimum shape). From 900px wide: a landscape
+ * card, photo left and text right, so the photo gets most of the screen. CardViewer still shrinks
+ * the stage if the tallest card doesn't fit the screen height.
+ */
+@layer components {
+  .tc-stage {
+    width: min(450px, 85vw, calc((100vh - 180px) * 0.6923));
+    min-height: calc(min(450px, 85vw, calc((100vh - 180px) * 0.6923)) * 1.4444);
+  }
+
+  @media (min-width: 900px) {
+    .tc-stage {
+      width: min(1000px, 92vw);
+      min-height: 0;
+    }
+
+    .tc-front {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      grid-template-rows: auto auto auto auto 1fr auto;
+      grid-template-areas:
+        'pic head'
+        'pic title'
+        'pic desc'
+        'pic link'
+        'pic .'
+        'pic foot';
+      column-gap: 28px;
+      row-gap: 14px;
+      align-items: start;
+      padding: 24px;
+    }
+
+    .tc-pic { grid-area: pic; }
+    .tc-head { grid-area: head; }
+    .tc-title { grid-area: title; font-size: 16px; }
+    .tc-desc { grid-area: desc; }
+    .tc-link { grid-area: link; justify-self: start; }
+    .tc-foot { grid-area: foot; margin-top: 0; }
   }
 }
